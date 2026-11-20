@@ -1,1046 +1,181 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>AJEEVA | Digital Design Studio</title>
 <meta name="description" content="AJEEVA Digital Design Studio — Create. Design. Elevate.">
-
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: #05090c;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  overflow-x: hidden;
-}
-  
-
-/* PREMIUM NAVIGATION */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 22px 6%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 100;
-  background: rgba(5, 12, 15, .78);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(197, 163, 90, .15);
-  transition: .4s ease;
-}
-
-.nav-logo {
-  color: #e5c77f;
-  text-decoration: none;
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 4px;
-  transition: .3s ease;
-}
-
-.nav-logo span {
-  color: #00c6b4;
-}
-
-.nav-logo:hover {
-  text-shadow: 0 0 18px #c5a35a;
-  transform: scale(1.05);
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-
-.nav-links a {
-  position: relative;
-  color: #c2d0ce;
-  text-decoration: none;
-  font-size: 12px;
-  letter-spacing: 1.5px;
-  padding: 10px 0;
-  transition: .35s ease;
-}
-
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #00c6b4, #e5c77f);
-  box-shadow: 0 0 12px #00c6b4;
-  transform: translateX(-50%);
-  transition: width .35s ease;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  color: #e5c77f;
-  text-shadow: 0 0 12px #c5a35a88;
-}
-
-.nav-links a:hover::after,
-.nav-links a.active::after {
-  width: 100%;
-}
-
-.nav-links a:active {
-  transform: scale(.88);
-}
-
-@media (max-width: 700px) {
-  .navbar {
-    padding: 15px 4%;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .nav-links {
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px 17px;
-  }
-
-  .nav-links a {
-    font-size: 10px;
-  }
-}
-
-
-/* HERO SECTION */
-.hero {
-  min-height: 100vh;
-  min-height: 100svh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 30px 20px;
-  overflow: hidden;
-  isolation: isolate;
-  background: radial-gradient(
-    ellipse at center,
-    #17434a 0%,
-    #0b1c20 42%,
-    #030608 82%
-  );
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: #00c6b4;
-  filter: blur(160px);
-  opacity: .12;
-  z-index: -1;
-  animation: lightPulse 6s ease-in-out infinite alternate;
-}
-
-@keyframes lightPulse {
-  from {
-    transform: scale(.8);
-    opacity: .08;
-  }
-  to {
-    transform: scale(1.2);
-    opacity: .18;
-  }
-}
-
-/* CINEMATIC RINGS */
-.ring {
-  position: absolute;
-  width: min(75vw, 520px);
-  aspect-ratio: 1;
-  border: 2px solid #c5a35a;
-  border-radius: 50%;
-  transform: rotateX(68deg);
-  box-shadow: 0 0 25px #00b9a455,
-              inset 0 0 30px #00b9a422;
-  animation: rotate 18s linear infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.ring.two {
-  width: min(95vw, 680px);
-  border-color: #00aeb0;
-  animation-duration: 25s;
-  animation-direction: reverse;
-}
-
-@keyframes rotate {
-  from {
-    transform: rotateX(68deg) rotateZ(0deg);
-  }
-  to {
-    transform: rotateX(68deg) rotateZ(360deg);
-  }
-}
-
-/* LOGO */
-.logo-container {
-  width: min(80%, 420px);
-  position: relative;
-  z-index: 2;
-  animation: reveal 2s ease both;
-}
-
-.logo {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 0 22px #c49a50);
-}
-
-@keyframes reveal {
-  from {
-    opacity: 0;
-    transform: translateY(35px) scale(.85);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* BUTTON */
-.btn {
-  position: relative;
-  z-index: 3;
-  margin-top: 35px;
-  padding: 15px 32px;
-  border: 1px solid #c5a35a;
-  color: #e5c77f;
-  text-decoration: none;
-  letter-spacing: 2px;
-  font-size: 12px;
-  transition: .35s ease;
-}
-
-.btn:hover {
-  background: #c5a35a;
-  color: #050b0e;
-  box-shadow: 0 0 25px #c5a35a66;
-  transform: translateY(-3px);
-}
-
-/* COMMON SECTION */
-section {
-  padding: 100px 22px;
-  text-align: center;
-}
-
-/* SECTION HEADINGS */
-.section-heading {
-  text-align: center;
-  margin-bottom: 55px;
-}
-
-.eyebrow {
-  color: #00b9a4;
-  letter-spacing: 4px;
-  font-size: 11px;
-}
-
-.section-heading h2 {
-  color: #e4c47d;
-  font-size: clamp(25px, 4vw, 38px);
-  letter-spacing: 3px;
-  margin: 18px 0;
-}
-
-.section-heading p {
-  color: #aabbbb;
-  line-height: 1.7;
-}
-
-/* SERVICES */
-.services {
-  padding: 110px 7%;
-  background: linear-gradient(180deg, #080f12, #0b171b);
-}
-
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-  max-width: 1150px;
-  margin: auto;
-}
-
-.service-card {
-  position: relative;
-  padding: 35px 28px;
-  min-height: 245px;
-  background: linear-gradient(145deg, #13272b, #091316);
-  border: 1px solid #244044;
-  border-radius: 12px;
-  transition: .4s ease;
-  overflow: hidden;
-  text-align: left;
-}
-
-.service-card:hover {
-  transform: translateY(-9px);
-  border-color: #c5a35a;
-  box-shadow: 0 15px 35px #0008;
-}
-
-.service-number {
-  position: absolute;
-  top: 20px;
-  right: 22px;
-  color: #6d8582;
-  font-size: 12px;
-}
-
-.service-icon {
-  color: #d6b46e;
-  font-size: 35px;
-  margin-bottom: 22px;
-}
-
-.service-card h3 {
-  color: #f0d69b;
-  font-size: 18px;
-  margin-bottom: 14px;
-}
-
-.service-card p {
-  color: #9eafae;
-  font-size: 13px;
-  line-height: 1.8;
-}
-
-/* ABOUT */
-.about {
-  background: linear-gradient(180deg, #080f12, #0b171a);
-}
-
-.about h2 {
-  color: #d7b56d;
-  letter-spacing: 4px;
-  margin-bottom: 25px;
-  font-size: clamp(22px, 4vw, 34px);
-}
-
-.about p {
-  color: #aabbbb;
-  line-height: 1.9;
-  max-width: 650px;
-  margin: auto;
-  font-size: 15px;
-}
-
-/* PORTFOLIO */
-.portfolio {
-  padding: 100px 8%;
-  background: #080d12;
-}
-
-.portfolio .section-heading h2 {
-  color: #d6b36a;
-}
-
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
-  max-width: 1100px;
-  margin: auto;
-}
-
-.portfolio-card {
-  background: #111a22;
-  border: 1px solid rgba(214, 179, 106, .25);
-  border-radius: 14px;
-  padding: 18px;
-  transition: .4s ease;
-}
-
-.portfolio-card:hover {
-  transform: translateY(-10px);
-  border-color: #d6b36a;
-  box-shadow: 0 12px 35px rgba(214, 179, 106, .15);
-}
-
-.portfolio-preview {
-  height: 190px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9px;
-  background: linear-gradient(135deg, #182630, #080d12);
-  color: #d6b36a;
-  font-size: 25px;
-  font-weight: bold;
-  letter-spacing: 3px;
-}
-
-.portfolio-card h3 {
-  color: #fff;
-  margin: 20px 0 8px;
-}
-
-.portfolio-card p {
-  color: #aaa;
-  font-size: 14px;
-  line-height: 1.7;
-}
-
-/* CONTACT */
-.contact {
-  background: linear-gradient(180deg, #0b171a, #05090c);
-}
-
-.contact h2 {
-  color: #d7b56d;
-  font-size: clamp(25px, 4vw, 36px);
-  margin-bottom: 18px;
-}
-
-.contact p {
-  color: #aabbbb;
-  line-height: 1.8;
-  margin-bottom: 28px;
-}
-
-.contact-btn {
-  display: inline-block;
-  padding: 14px 30px;
-  border: 1px solid #c5a35a;
-  color: #e5c77f;
-  text-decoration: none;
-  letter-spacing: 2px;
-  font-size: 12px;
-  transition: .3s ease;
-}
-
-.contact-btn:hover {
-  background: #c5a35a;
-  color: #05090c;
-}
-
-/* FOOTER */
-footer {
-  padding: 28px 15px;
-  text-align: center;
-  color: #718786;
-  font-size: 12px;
-  letter-spacing: 1px;
-  background: #05090c;
-  line-height: 1.8;
-}
-
-/* TABLET */
-@media (max-width: 850px) {
-  .service-grid,
-  .portfolio-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-  .logo-container {
-    width: 90%;
-  }
-
-  .ring {
-    width: 90vw;
-  }
-
-  .ring.two {
-    width: 110vw;
-  }
-
-  .service-grid,
-  .portfolio-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .services,
-  .portfolio {
-    padding: 75px 6%;
-  }
-
-  .about,
-  .contact {
-    padding: 75px 20px;
-  }
-}
-
-/* REDUCED MOTION */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-  }
-}
-  
-/* BUSINESS CARD TEMPLATES */
-.templates {
-  padding: 100px 7%;
-  background: #080f12;
-}
-
-.template-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 28px;
-  max-width: 900px;
-  margin: auto;
-}
-
-.template-card {
-  background: #111a22;
-  border: 1px solid #344044;
-  padding: 22px;
-  border-radius: 14px;
-  text-align: center;
-  transition: .3s ease;
-}
-
-.template-card:hover {
-  transform: translateY(-7px);
-  border-color: #c5a35a;
-}
-
-.template-preview {
-  width: 100%;
-  aspect-ratio: 1.75 / 1;
-  border-radius: 8px;
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  text-align: center;
-  overflow: hidden;
-}
-
-.gold-card {
-  background: linear-gradient(135deg, #090909, #30230e);
-  border: 1px solid #c5a35a;
-  color: #e8c778;
-}
-
-.blue-card {
-  background: linear-gradient(135deg, #071a35, #17608b);
-  border: 1px solid #75c9ed;
-  color: #fff;
-}
-
-.template-preview strong {
-  font-size: clamp(17px, 3vw, 25px);
-  letter-spacing: 3px;
-}
-
-.template-preview span {
-  font-size: 11px;
-  letter-spacing: 2px;
-}
-
-.template-preview small {
-  font-size: 10px;
-  letter-spacing: 1px;
-}
-
-.template-card h3 {
-  color: #e5c77f;
-  margin: 20px 0 8px;
-}
-
-.template-card p {
-  color: #aabbbb;
-  font-size: 13px;
-  line-height: 1.7;
-  margin-bottom: 20px;
-}
-
-.template-card button,
-.editor-box button {
-  background: transparent;
-  border: 1px solid #c5a35a;
-  color: #e5c77f;
-  padding: 13px 25px;
-  cursor: pointer;
-  letter-spacing: 2px;
-  transition: .3s;
-}
-
-.template-card button:hover,
-.editor-box button:hover {
-  background: #c5a35a;
-  color: #05090c;
-}
-
-/* ONLINE EDITOR */
-.editor {
-  padding: 100px 7%;
-  background: linear-gradient(180deg, #080d12, #101b20);
-}
-
-.editor-box {
-  max-width: 600px;
-  margin: auto;
-  padding: 28px;
-  border: 1px solid #344044;
-  border-radius: 14px;
-  background: #101a20;
-}
-
-.editor-box label {
-  display: block;
-  color: #d6b36a;
-  font-size: 13px;
-  margin: 18px 0 8px;
-}
-
-.editor-box input {
-  width: 100%;
-  padding: 13px;
-  border: 1px solid #405052;
-  border-radius: 6px;
-  background: #071014;
-  color: #fff;
-  font-size: 15px;
-  outline: none;
-}
-
-.editor-box input:focus {
-  border-color: #c5a35a;
-}
-
-#liveCard {
-  margin: 30px 0;
-  min-height: 190px;
-}
-
-.editor-box button {
-  width: 100%;
-}
-
-@media(max-width: 600px) {
-  .template-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .templates,
-  .editor {
-    padding: 75px 6%;
-  }
-
-  .editor-box {
-    padding: 18px;
-  }
-}
-
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:105px}
+body{background:#05090c;color:#fff;font-family:Arial,sans-serif;overflow-x:hidden}
+section{padding:100px 22px;text-align:center;scroll-margin-top:90px}
+.navbar{position:fixed;top:0;left:0;width:100%;padding:20px 6%;display:flex;align-items:center;justify-content:space-between;z-index:100;background:rgba(5,12,15,.82);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(197,163,90,.18);box-shadow:0 8px 30px rgba(0,0,0,.25)}
+.nav-logo{color:#e5c77f;text-decoration:none;font-size:24px;font-weight:bold;letter-spacing:4px;transition:.3s}
+.nav-logo span{color:#00c6b4}
+.nav-logo:hover{transform:scale(1.05);text-shadow:0 0 18px #c5a35a}
+.nav-links{display:flex;align-items:center;gap:27px}
+.nav-links a{position:relative;color:#c2d0ce;text-decoration:none;font-size:12px;letter-spacing:1.3px;padding:10px 0;transition:.3s}
+.nav-links a:after{content:"";position:absolute;left:50%;bottom:0;width:0;height:2px;background:linear-gradient(90deg,#00c6b4,#e5c77f);box-shadow:0 0 12px #00c6b4;transform:translateX(-50%);transition:width .35s}
+.nav-links a:hover,.nav-links a.active{color:#e5c77f;text-shadow:0 0 12px #c5a35a88}
+.nav-links a:hover:after,.nav-links a.active:after{width:100%}
+.nav-links a:active{transform:scale(.9)}
+.hero{min-height:100vh;min-height:100svh;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 20px 30px;overflow:hidden;isolation:isolate;background:radial-gradient(ellipse at center,#17434a 0%,#0b1c20 42%,#030608 82%)}
+.hero:before{content:"";position:absolute;width:500px;height:500px;border-radius:50%;background:#00c6b4;filter:blur(160px);opacity:.12;z-index:-1;animation:lightPulse 6s ease-in-out infinite alternate}
+@keyframes lightPulse{from{transform:scale(.8);opacity:.08}to{transform:scale(1.2);opacity:.18}}
+.ring{position:absolute;width:min(75vw,520px);aspect-ratio:1;border:2px solid #c5a35a;border-radius:50%;transform:rotateX(68deg);box-shadow:0 0 25px #00b9a455,inset 0 0 30px #00b9a422;animation:rotate 18s linear infinite;pointer-events:none;z-index:0}
+.ring.two{width:min(95vw,680px);border-color:#00aeb0;animation-duration:25s;animation-direction:reverse}
+@keyframes rotate{from{transform:rotateX(68deg) rotateZ(0)}to{transform:rotateX(68deg) rotateZ(360deg)}}
+.logo-container{width:min(80%,420px);position:relative;z-index:2;animation:reveal 2s ease both}
+.logo{display:block;width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 0 22px #c49a50)}
+@keyframes reveal{from{opacity:0;transform:translateY(35px) scale(.85)}to{opacity:1;transform:translateY(0) scale(1)}}
+.btn{position:relative;z-index:3;margin-top:35px;padding:15px 32px;border:1px solid #c5a35a;color:#e5c77f;text-decoration:none;letter-spacing:2px;font-size:12px;transition:.35s}
+.btn:hover{background:#c5a35a;color:#050b0e;box-shadow:0 0 25px #c5a35a66;transform:translateY(-3px)}
+.section-heading{text-align:center;margin-bottom:55px}
+.eyebrow{color:#00b9a4;letter-spacing:4px;font-size:11px}
+.section-heading h2{color:#e4c47d;font-size:clamp(25px,4vw,38px);letter-spacing:3px;margin:18px 0}
+.section-heading p{color:#aabbbb;line-height:1.7}
+.services{padding:110px 7%;background:linear-gradient(180deg,#080f12,#0b171b)}
+.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1150px;margin:auto}
+.service-card{position:relative;padding:35px 28px;min-height:245px;background:linear-gradient(145deg,#13272b,#091316);border:1px solid #244044;border-radius:12px;transition:.4s;overflow:hidden;text-align:left}
+.service-card:hover{transform:translateY(-9px);border-color:#c5a35a;box-shadow:0 15px 35px #0008}
+.service-number{position:absolute;top:20px;right:22px;color:#6d8582;font-size:12px}
+.service-icon{color:#d6b46e;font-size:35px;margin-bottom:22px}
+.service-card h3{color:#f0d69b;font-size:18px;margin-bottom:14px}
+.service-card p{color:#9eafae;font-size:13px;line-height:1.8}
+.about{background:linear-gradient(180deg,#080f12,#0b171a)}
+.about h2{color:#d7b56d;letter-spacing:4px;margin-bottom:25px;font-size:clamp(22px,4vw,34px)}
+.about p{color:#aabbbb;line-height:1.9;max-width:650px;margin:auto;font-size:15px}
+.portfolio{padding:100px 8%;background:#080d12}
+.portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px;max-width:1100px;margin:auto}
+.portfolio-card{background:#111a22;border:1px solid rgba(214,179,106,.25);border-radius:14px;padding:18px;transition:.4s}
+.portfolio-card:hover{transform:translateY(-10px);border-color:#d6b36a;box-shadow:0 12px 35px rgba(214,179,106,.15)}
+.portfolio-preview{height:190px;display:flex;align-items:center;justify-content:center;border-radius:9px;background:linear-gradient(135deg,#182630,#080d12);color:#d6b36a;font-size:25px;font-weight:bold;letter-spacing:3px}
+.portfolio-card h3{color:#fff;margin:20px 0 8px}
+.portfolio-card p{color:#aaa;font-size:14px;line-height:1.7}
+.templates{padding:100px 7%;background:#080f12}
+.template-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;max-width:900px;margin:auto}
+.template-card{background:#111a22;border:1px solid #344044;padding:22px;border-radius:14px;text-align:center;transition:.3s}
+.template-card:hover{transform:translateY(-7px);border-color:#c5a35a}
+.template-preview{width:100%;aspect-ratio:1.75/1;border-radius:8px;padding:22px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-align:center;overflow:hidden}
+.gold-card{background:linear-gradient(135deg,#090909,#30230e);border:1px solid #c5a35a;color:#e8c778}
+.blue-card{background:linear-gradient(135deg,#071a35,#17608b);border:1px solid #75c9ed;color:#fff}
+.template-preview strong{font-size:clamp(17px,3vw,25px);letter-spacing:3px}
+.template-preview span{font-size:11px;letter-spacing:2px}
+.template-preview small{font-size:10px;letter-spacing:1px}
+.template-card h3{color:#e5c77f;margin:20px 0 8px}
+.template-card p{color:#aabbbb;font-size:13px;line-height:1.7;margin-bottom:20px}
+.template-card button,.editor-box button{background:transparent;border:1px solid #c5a35a;color:#e5c77f;padding:13px 25px;cursor:pointer;letter-spacing:2px;transition:.3s}
+.template-card button:hover,.editor-box button:hover{background:#c5a35a;color:#05090c}
+.editor{padding:100px 7%;background:linear-gradient(180deg,#080d12,#101b20)}
+.editor-box{max-width:600px;margin:auto;padding:28px;border:1px solid #344044;border-radius:14px;background:#101a20}
+.editor-box label{display:block;color:#d6b36a;font-size:13px;margin:18px 0 8px;text-align:left}
+.editor-box input{width:100%;padding:13px;border:1px solid #405052;border-radius:6px;background:#071014;color:#fff;font-size:15px;outline:none}
+.editor-box input:focus{border-color:#c5a35a}
+#liveCard{margin:30px 0;min-height:190px}
+.editor-box button{width:100%}
+.contact{background:linear-gradient(180deg,#0b171a,#05090c)}
+.contact h2{color:#d7b56d;font-size:clamp(25px,4vw,36px);margin-bottom:18px}
+.contact p{color:#aabbbb;line-height:1.8;margin-bottom:28px}
+.contact-btn{display:inline-block;padding:14px 30px;border:1px solid #c5a35a;color:#e5c77f;text-decoration:none;letter-spacing:2px;font-size:12px;transition:.3s}
+.contact-btn:hover{background:#c5a35a;color:#05090c}
+footer{padding:28px 15px;text-align:center;color:#718786;font-size:12px;letter-spacing:1px;background:#05090c;line-height:1.8}
+@media(max-width:850px){.service-grid,.portfolio-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.navbar{padding:14px 4%;flex-direction:column;gap:10px}.nav-logo{font-size:21px}.nav-links{width:100%;justify-content:center;flex-wrap:wrap;gap:5px 17px}.nav-links a{font-size:10px;padding:7px 0}}
+@media(max-width:600px){.logo-container{width:90%}.ring{width:90vw}.ring.two{width:110vw}.service-grid,.portfolio-grid,.template-grid{grid-template-columns:1fr}.services,.portfolio,.templates,.editor{padding:75px 6%}.about,.contact{padding:75px 20px}.editor-box{padding:18px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 </style>
 </head>
-
 <body>
-
-<!-- NAVIGATION -->
 <nav class="navbar">
   <a href="#home" class="nav-logo">AJEEVA<span>.</span></a>
-
   <div class="nav-links">
-    <a href="#home">Home</a>
-    <a href="#services">Services</a>
-    <a href="#about">About</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#templates">Templates</a>
-    <a href="#contact">Contact</a>
+    <a href="#home" class="active">Home</a><a href="#services">Services</a><a href="#about">About</a><a href="#portfolio">Portfolio</a><a href="#templates">Templates</a><a href="#contact">Contact</a>
   </div>
 </nav>
-
-<!-- HERO -->
 <header class="hero" id="home">
-  <div class="ring"></div>
-  <div class="ring two"></div>
-
-  <div class="logo-container">
-    <img
-      class="logo"
-      src="./Ajith.png"
-      alt="AJEEVA Digital Design Studio"
-    >
-  </div>
-
+  <div class="ring"></div><div class="ring two"></div>
+  <div class="logo-container"><img class="logo" src="./Ajith.png" alt="AJEEVA Digital Design Studio"></div>
   <a class="btn" href="#services">EXPLORE STUDIO</a>
 </header>
-
-<!-- SERVICES -->
 <section class="services" id="services">
-  <div class="section-heading">
-    <span class="eyebrow">WHAT WE DO</span>
-    <h2>OUR CREATIVE SERVICES</h2>
-    <p>Creative solutions designed to elevate your brand.</p>
-  </div>
-
+  <div class="section-heading"><span class="eyebrow">WHAT WE DO</span><h2>OUR CREATIVE SERVICES</h2><p>Creative solutions designed to elevate your brand.</p></div>
   <div class="service-grid">
-
-    <div class="service-card">
-      <span class="service-number">01</span>
-      <div class="service-icon">✦</div>
-      <h3>Logo & Branding</h3>
-      <p>Professional logos, brand identity and visual systems that make your business memorable.</p>
-    </div>
-
-    <div class="service-card">
-      <span class="service-number">02</span>
-      <div class="service-icon">◈</div>
-      <h3>Website Design</h3>
-      <p>Modern, responsive and engaging website designs for businesses and creators.</p>
-    </div>
-
-    <div class="service-card">
-      <span class="service-number">03</span>
-      <div class="service-icon">▣</div>
-      <h3>Business Stationery</h3>
-      <p>Business cards, letterheads, invoices, quotations and professional documents.</p>
-    </div>
-
-    <div class="service-card">
-      <span class="service-number">04</span>
-      <div class="service-icon">◎</div>
-      <h3>Social Media Design</h3>
-      <p>Creative social media posts, banners, advertisements and promotional graphics.</p>
-    </div>
-
-    <div class="service-card">
-      <span class="service-number">05</span>
-      <div class="service-icon">◇</div>
-      <h3>Marketing Materials</h3>
-      <p>Brochures, flyers, posters and company profiles that communicate your brand.</p>
-    </div>
-
-    <div class="service-card">
-      <span class="service-number">06</span>
-      <div class="service-icon">⬡</div>
-      <h3>Packaging Design</h3>
-      <p>Attractive packaging and product visuals that help your products stand out.</p>
-    </div>
-
+    <div class="service-card"><span class="service-number">01</span><div class="service-icon">✦</div><h3>Logo &amp; Branding</h3><p>Professional logos, brand identity and visual systems that make your business memorable.</p></div>
+    <div class="service-card"><span class="service-number">02</span><div class="service-icon">◈</div><h3>Website Design</h3><p>Modern, responsive and engaging website designs for businesses and creators.</p></div>
+    <div class="service-card"><span class="service-number">03</span><div class="service-icon">▣</div><h3>Business Stationery</h3><p>Business cards, letterheads, invoices, quotations and professional documents.</p></div>
+    <div class="service-card"><span class="service-number">04</span><div class="service-icon">◎</div><h3>Social Media Design</h3><p>Creative social media posts, banners, advertisements and promotional graphics.</p></div>
+    <div class="service-card"><span class="service-number">05</span><div class="service-icon">◇</div><h3>Marketing Materials</h3><p>Brochures, flyers, posters and company profiles that communicate your brand.</p></div>
+    <div class="service-card"><span class="service-number">06</span><div class="service-icon">⬡</div><h3>Packaging Design</h3><p>Attractive packaging and product visuals that help your products stand out.</p></div>
   </div>
 </section>
-
-<!-- ABOUT -->
-<section class="about" id="about">
-  <h2>WE CREATE EXPERIENCES</h2>
-  <p>
-    We transform ideas into meaningful digital experiences
-    through creative design, visual identity and modern technology.
-  </p>
-</section>
-
-<!-- PORTFOLIO -->
+<section class="about" id="about"><h2>WE CREATE EXPERIENCES</h2><p>We transform ideas into meaningful digital experiences through creative design, visual identity and modern technology.</p></section>
 <section class="portfolio" id="portfolio">
-  <div class="section-heading">
-    <span class="eyebrow">OUR WORK</span>
-    <h2>OUR CREATIVE WORKS</h2>
-    <p>Ideas transformed into impactful designs.</p>
-  </div>
-
+  <div class="section-heading"><span class="eyebrow">OUR WORK</span><h2>OUR CREATIVE WORKS</h2><p>Ideas transformed into impactful designs.</p></div>
   <div class="portfolio-grid">
-
-    <div class="portfolio-card">
-      <div class="portfolio-preview">BRANDING</div>
-      <h3>Brand Identity</h3>
-      <p>Professional logo and brand design.</p>
-    </div>
-
-    <div class="portfolio-card">
-      <div class="portfolio-preview">WEB DESIGN</div>
-      <h3>Website Design</h3>
-      <p>Modern and responsive website concepts.</p>
-    </div>
-
-    <div class="portfolio-card">
-      <div class="portfolio-preview">STATIONERY</div>
-      <h3>BUSINESS</h3>
-      <p>Premium cards and business materials.</p>
-    </div>
-
+    <div class="portfolio-card"><div class="portfolio-preview">BRANDING</div><h3>Brand Identity</h3><p>Professional logo and brand design.</p></div>
+    <div class="portfolio-card"><div class="portfolio-preview">WEB DESIGN</div><h3>Website Design</h3><p>Modern and responsive website concepts.</p></div>
+    <div class="portfolio-card"><div class="portfolio-preview">STATIONERY</div><h3>Business Stationery</h3><p>Premium cards and business materials.</p></div>
   </div>
 </section>
-  
-<!-- BUSINESS CARD TEMPLATES -->
 <section class="templates" id="templates">
-
-  <div class="section-heading">
-    <span class="eyebrow">DESIGN COLLECTION</span>
-    <h2>EDITABLE BUSINESS CARDS</h2>
-    <p>Choose a design and customize it for your business.</p>
-  </div>
-
+  <div class="section-heading"><span class="eyebrow">DESIGN COLLECTION</span><h2>EDITABLE BUSINESS CARDS</h2><p>Choose a design and customize it for your business.</p></div>
   <div class="template-grid">
-
-    <div class="template-card">
-      <div class="template-preview gold-card">
-        <strong>YOUR BRAND</strong>
-        <span>CREATIVE BUSINESS</span>
-        <small>YOUR NAME | DESIGNER</small>
-      </div>
-      <h3>Luxury Gold</h3>
-      <p>Elegant black and gold business card.</p>
-      <button onclick="openEditor('gold')">EDIT DESIGN</button>
-    </div>
-
-    <div class="template-card">
-      <div class="template-preview blue-card">
-        <strong>YOUR BRAND</strong>
-        <span>BUSINESS SOLUTIONS</span>
-        <small>YOUR NAME | MANAGER</small>
-      </div>
-      <h3>Modern Blue</h3>
-      <p>Clean and professional corporate design.</p>
-      <button onclick="openEditor('blue')">EDIT DESIGN</button>
-    </div>
-
+    <div class="template-card"><div class="template-preview gold-card"><strong>YOUR BRAND</strong><span>CREATIVE BUSINESS</span><small>YOUR NAME | DESIGNER</small></div><h3>Luxury Gold</h3><p>Elegant black and gold business card.</p><button type="button" onclick="openEditor('gold')">EDIT DESIGN</button></div>
+    <div class="template-card"><div class="template-preview blue-card"><strong>YOUR BRAND</strong><span>BUSINESS SOLUTIONS</span><small>YOUR NAME | MANAGER</small></div><h3>Modern Blue</h3><p>Clean and professional corporate design.</p><button type="button" onclick="openEditor('blue')">EDIT DESIGN</button></div>
   </div>
-
 </section>
-
-<!-- SIMPLE ONLINE EDITOR -->
 <section class="editor" id="editor">
-  <div class="section-heading">
-    <span class="eyebrow">CUSTOMIZE YOUR DESIGN</span>
-    <h2>BUSINESS CARD EDITOR</h2>
-    <p>Enter your details and preview your card.</p>
-  </div>
-
+  <div class="section-heading"><span class="eyebrow">CUSTOMIZE YOUR DESIGN</span><h2>BUSINESS CARD EDITOR</h2><p>Enter your details and preview your card.</p></div>
   <div class="editor-box">
-    <label>Your Name</label>
-    <input id="cardName" type="text" placeholder="Enter your name">
-
-    <label>Business Name</label>
-    <input id="businessName" type="text" placeholder="Enter business name">
-
-    <label>Job Title</label>
-    <input id="jobTitle" type="text" placeholder="Enter job title">
-
-    <label>Phone Number</label>
-    <input id="phoneNumber" type="text" placeholder="Enter phone number">
-
-    <div id="liveCard" class="template-preview gold-card">
-      <strong id="previewBusiness">YOUR BRAND</strong>
-      <span id="previewTitle">BUSINESS SOLUTIONS</span>
-      <small id="previewName">YOUR NAME | DESIGNER</small>
-      <small id="previewPhone">YOUR PHONE</small>
-    </div>
-
+    <label for="cardName">Your Name</label><input id="cardName" type="text" placeholder="Enter your name">
+    <label for="businessName">Business Name</label><input id="businessName" type="text" placeholder="Enter business name">
+    <label for="jobTitle">Job Title</label><input id="jobTitle" type="text" placeholder="Enter job title">
+    <label for="phoneNumber">Phone Number</label><input id="phoneNumber" type="text" placeholder="Enter phone number">
+    <div id="liveCard" class="template-preview gold-card"><strong id="previewBusiness">YOUR BRAND</strong><span id="previewTitle">BUSINESS SOLUTIONS</span><small id="previewName">YOUR NAME | DESIGNER</small><small id="previewPhone">YOUR PHONE</small></div>
     <button type="button" onclick="downloadCard()">DOWNLOAD SVG</button>
   </div>
 </section>
-
-
-<!-- CONTACT -->
-<section class="contact" id="contact">
-  <h2>LET'S CREATE SOMETHING GREAT</h2>
-  <p>Have a project in mind? Let's bring your ideas to life.</p>
-  <a class="contact-btn"
-     href="mailto:ajithk0213@gmail.com?subject=AJEEVA%20Project%20Enquiry">
-    START A PROJECT
-  </a>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  © 2026 AJEEVA DIGITAL DESIGN STUDIO
-  <br>
-  CREATE. DESIGN. ELEVATE.
-</footer>
-
-  
+<section class="contact" id="contact"><h2>LET'S CREATE SOMETHING GREAT</h2><p>Have a project in mind? Let's bring your ideas to life.</p><a class="contact-btn" href="mailto:ajithk0213@gmail.com?subject=AJEEVA%20Project%20Enquiry">START A PROJECT</a></section>
+<footer>© 2026 AJEEVA DIGITAL DESIGN STUDIO<br>CREATE. DESIGN. ELEVATE.</footer>
 <script>
-// OPEN EDITOR
-function openEditor(type) {
-  const card = document.getElementById("liveCard");
-
-  card.className = "template-preview " +
-    (type === "blue" ? "blue-card" : "gold-card");
-
-  document.getElementById("editor").scrollIntoView({
-    behavior: "smooth"
-  });
+function openEditor(type){
+  const card=document.getElementById("liveCard");
+  card.className="template-preview "+(type==="blue"?"blue-card":"gold-card");
+  document.getElementById("editor").scrollIntoView({behavior:"smooth",block:"start"});
 }
-
-// LIVE CARD PREVIEW
-const fields = [
-  ["cardName", "previewName", "YOUR NAME | DESIGNER"],
-  ["businessName", "previewBusiness", "YOUR BRAND"],
-  ["jobTitle", "previewTitle", "BUSINESS SOLUTIONS"],
-  ["phoneNumber", "previewPhone", "YOUR PHONE"]
-];
-
-fields.forEach(([inputId, previewId, fallback]) => {
-  const input = document.getElementById(inputId);
-  const preview = document.getElementById(previewId);
-
-  input.addEventListener("input", () => {
-    preview.textContent = input.value.trim() || fallback;
-  });
+const fields=[["cardName","previewName","YOUR NAME | DESIGNER"],["businessName","previewBusiness","YOUR BRAND"],["jobTitle","previewTitle","BUSINESS SOLUTIONS"],["phoneNumber","previewPhone","YOUR PHONE"]];
+fields.forEach(([inputId,previewId,fallback])=>{
+  const input=document.getElementById(inputId),preview=document.getElementById(previewId);
+  input.addEventListener("input",()=>{preview.textContent=input.value.trim()||fallback;});
 });
-
-// DOWNLOAD SVG
-function downloadCard() {
-  const card = document.getElementById("liveCard");
-
-  const blue = card.classList.contains("blue-card");
-
-  const colors = blue
-    ? {
-        bg1: "#071a35",
-        bg2: "#17608b",
-        fg: "#ffffff",
-        border: "#75c9ed"
+function downloadCard(){
+  const card=document.getElementById("liveCard"),blue=card.classList.contains("blue-card");
+  const colors=blue?{bg1:"#071a35",bg2:"#17608b",fg:"#ffffff",border:"#75c9ed"}:{bg1:"#090909",bg2:"#30230e",fg:"#e8c778",border:"#c5a35a"};
+  const getText=id=>document.getElementById(id).textContent;
+  const escapeXML=value=>value.replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&apos;"}[char]));
+  const business=escapeXML(getText("previewBusiness")),title=escapeXML(getText("previewTitle")),name=escapeXML(getText("previewName")),phone=escapeXML(getText("previewPhone"));
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="600" viewBox="0 0 1050 600"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${colors.bg1}"/><stop offset="100%" stop-color="${colors.bg2}"/></linearGradient></defs><rect width="1050" height="600" rx="25" fill="url(#bg)"/><rect x="15" y="15" width="1020" height="570" rx="18" fill="none" stroke="${colors.border}" stroke-width="3"/><g fill="${colors.fg}" text-anchor="middle" font-family="Arial,sans-serif"><text x="525" y="235" font-size="64" font-weight="bold">${business}</text><text x="525" y="310" font-size="28">${title}</text><text x="525" y="405" font-size="24">${name}</text><text x="525" y="465" font-size="22">${phone}</text></g></svg>`;
+  const blob=new Blob([svg],{type:"image/svg+xml;charset=utf-8"}),url=URL.createObjectURL(blob),link=document.createElement("a");
+  link.href=url;link.download="AJEEVA-Business-Card.svg";document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+// NAVIGATION CLICK AND ACTIVE SECTION EFFECT
+const navLinks=document.querySelectorAll(".nav-links a");
+const pageSections=document.querySelectorAll("#home,#services,#about,#portfolio,#templates,#contact");
+navLinks.forEach(link=>link.addEventListener("click",()=>{
+  navLinks.forEach(item=>item.classList.remove("active"));
+  link.classList.add("active");
+}));
+if("IntersectionObserver" in window){
+  const sectionObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        navLinks.forEach(link=>link.classList.toggle("active",link.getAttribute("href")==="#"+entry.target.id));
       }
-    : {
-        bg1: "#090909",
-        bg2: "#30230e",
-        fg: "#e8c778",
-        border: "#c5a35a"
-      };
-
-  const getText = id =>
-    document.getElementById(id).textContent;
-
-  const escapeXML = value =>
-    value.replace(/[&<>"']/g, char => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&apos;"
-    })[char]);
-
-  const business = escapeXML(getText("previewBusiness"));
-  const title = escapeXML(getText("previewTitle"));
-  const name = escapeXML(getText("previewName"));
-  const phone = escapeXML(getText("previewPhone"));
-
-  const svg = `
-  <svg xmlns="http://www.w3.org/2000/svg"
-       width="1050" height="600" viewBox="0 0 1050 600">
-
-    <defs>
-      <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="${colors.bg1}"/>
-        <stop offset="100%" stop-color="${colors.bg2}"/>
-      </linearGradient>
-    </defs>
-
-    <rect width="1050" height="600" rx="25" fill="url(#bg)"/>
-
-    <rect x="15" y="15" width="1020" height="570"
-          rx="18" fill="none"
-          stroke="${colors.border}" stroke-width="3"/>
-
-    <g fill="${colors.fg}"
-       text-anchor="middle"
-       font-family="Arial, sans-serif">
-
-      <text x="525" y="235" font-size="64"
-            font-weight="bold">${business}</text>
-
-      <text x="525" y="310" font-size="28">
-        ${title}
-      </text>
-
-      <text x="525" y="405" font-size="24">
-        ${name}
-      </text>
-
-      <text x="525" y="465" font-size="22">
-        ${phone}
-      </text>
-
-    </g>
-  </svg>`;
-
-  const blob = new Blob([svg], {
-    type: "image/svg+xml;charset=utf-8"
-  });
-
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-
-  link.href = url;
-  link.download = "AJEEVA-Business-Card.svg";
-
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+  },{rootMargin:"-20% 0px -60% 0px",threshold:0});
+  pageSections.forEach(section=>sectionObserver.observe(section));
 }
-  
-// PREMIUM NAVIGATION EFFECT
-const navLinks = document.querySelectorAll(".nav-links a");
-
-navLinks.forEach(link => {
-  link.addEventListener("click", () => {
-    navLinks.forEach(item => item.classList.remove("active"));
-    link.classList.add("active");
-  });
-});
-
-// AUTOMATIC ACTIVE MENU ON SCROLL
-const pageSections = document.querySelectorAll(
-  "#home, #services, #about, #portfolio, #templates, #contact"
-);
-
-const sectionObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navLinks.forEach(link => {
-        link.classList.toggle(
-          "active",
-          link.getAttribute("href") === "#" + entry.target.id
-        );
-      });
-    }
-  });
-}, {
-  threshold: 0.25
-});
-
-pageSections.forEach(section => {
-  sectionObserver.observe(section);
-});
-
 </script>
-
 </body>
 </html>
