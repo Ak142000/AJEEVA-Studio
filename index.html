@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>AJEEVA | Digital Design Studio</title>
+<meta name="description" content="AJEEVA Digital Design Studio — Create. Design. Elevate.">
 
 <style>
 * {
@@ -28,6 +29,7 @@ body {
 /* HERO SECTION */
 .hero {
   min-height: 100vh;
+  min-height: 100svh;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -36,12 +38,32 @@ body {
   text-align: center;
   padding: 30px 20px;
   overflow: hidden;
+  isolation: isolate;
 
   background:
     radial-gradient(ellipse at center,
     #17434a 0%,
     #0b1c20 42%,
     #030608 82%);
+}
+
+/* CINEMATIC LIGHT */
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: #00c6b4;
+  filter: blur(160px);
+  opacity: .12;
+  z-index: -1;
+  animation: lightPulse 6s ease-in-out infinite alternate;
+}
+
+@keyframes lightPulse {
+  from { transform: scale(.8); opacity: .08; }
+  to { transform: scale(1.2); opacity: .18; }
 }
 
 /* CINEMATIC RINGS */
@@ -57,6 +79,7 @@ body {
     inset 0 0 30px #00b9a422;
   animation: rotate 18s linear infinite;
   pointer-events: none;
+  z-index: 0;
 }
 
 .ring.two {
@@ -76,17 +99,19 @@ body {
 }
 
 /* LOGO */
-.logo {
-  display: block;
-  width: min(80%, 380px);
-  height: auto;
+.logo-container {
+  width: min(80%, 420px);
   position: relative;
   z-index: 2;
-
-  mix-blend-mode: screen;
-  filter: drop-shadow(0 0 22px #c49a50);
-
   animation: reveal 2s ease both;
+}
+
+.logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 22px #c49a50);
 }
 
 @keyframes reveal {
@@ -106,13 +131,11 @@ body {
   z-index: 3;
   margin-top: 35px;
   padding: 15px 32px;
-
   border: 1px solid #c5a35a;
   color: #e5c77f;
   text-decoration: none;
   letter-spacing: 2px;
   font-size: 12px;
-
   transition: .35s ease;
 }
 
@@ -120,40 +143,45 @@ body {
   background: #c5a35a;
   color: #050b0e;
   box-shadow: 0 0 25px #c5a35a66;
+  transform: translateY(-3px);
 }
 
 /* ABOUT SECTION */
 section {
-  padding: 90px 22px;
+  padding: 100px 22px;
   text-align: center;
-  background: #080f12;
+  background:
+    linear-gradient(180deg, #080f12, #0b171a);
 }
 
 section h2 {
   color: #d7b56d;
   letter-spacing: 4px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-size: clamp(22px, 4vw, 34px);
 }
 
 section p {
   color: #aabbbb;
-  line-height: 1.8;
+  line-height: 1.9;
   max-width: 650px;
   margin: auto;
+  font-size: 15px;
 }
 
 /* FOOTER */
 footer {
-  padding: 25px;
+  padding: 28px 15px;
   text-align: center;
   color: #718786;
   font-size: 12px;
+  letter-spacing: 1px;
   background: #05090c;
 }
 
-/* MOBILE */
+/* MOBILE & TABLET */
 @media (max-width: 600px) {
-  .logo {
+  .logo-container {
     width: 90%;
   }
 
@@ -166,7 +194,15 @@ footer {
   }
 
   section {
-    padding: 70px 20px;
+    padding: 75px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
   }
 }
 </style>
@@ -179,11 +215,13 @@ footer {
   <div class="ring"></div>
   <div class="ring two"></div>
 
-  <img
-    class="logo"
-    src="Ajith.png"
-    alt="AJEEVA Digital Design Studio"
-  >
+  <div class="logo-container">
+    <img
+      class="logo"
+      src="Ajith.png"
+      alt="AJEEVA Digital Design Studio"
+    >
+  </div>
 
   <a class="btn" href="#about">
     EXPLORE STUDIO
@@ -202,6 +240,8 @@ footer {
 
 <footer>
   © 2026 AJEEVA DIGITAL DESIGN STUDIO
+  <br><br>
+  CREATE. DESIGN. ELEVATE.
 </footer>
 
 </body>
