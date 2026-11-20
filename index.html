@@ -767,5 +767,130 @@ footer {
   CREATE. DESIGN. ELEVATE.
 </footer>
 
+  
+<script>
+// OPEN EDITOR
+function openEditor(type) {
+  const card = document.getElementById("liveCard");
+
+  card.className = "template-preview " +
+    (type === "blue" ? "blue-card" : "gold-card");
+
+  document.getElementById("editor").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+// LIVE CARD PREVIEW
+const fields = [
+  ["cardName", "previewName", "YOUR NAME | DESIGNER"],
+  ["businessName", "previewBusiness", "YOUR BRAND"],
+  ["jobTitle", "previewTitle", "BUSINESS SOLUTIONS"],
+  ["phoneNumber", "previewPhone", "YOUR PHONE"]
+];
+
+fields.forEach(([inputId, previewId, fallback]) => {
+  const input = document.getElementById(inputId);
+  const preview = document.getElementById(previewId);
+
+  input.addEventListener("input", () => {
+    preview.textContent = input.value.trim() || fallback;
+  });
+});
+
+// DOWNLOAD SVG
+function downloadCard() {
+  const card = document.getElementById("liveCard");
+
+  const blue = card.classList.contains("blue-card");
+
+  const colors = blue
+    ? {
+        bg1: "#071a35",
+        bg2: "#17608b",
+        fg: "#ffffff",
+        border: "#75c9ed"
+      }
+    : {
+        bg1: "#090909",
+        bg2: "#30230e",
+        fg: "#e8c778",
+        border: "#c5a35a"
+      };
+
+  const getText = id =>
+    document.getElementById(id).textContent;
+
+  const escapeXML = value =>
+    value.replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&apos;"
+    })[char]);
+
+  const business = escapeXML(getText("previewBusiness"));
+  const title = escapeXML(getText("previewTitle"));
+  const name = escapeXML(getText("previewName"));
+  const phone = escapeXML(getText("previewPhone"));
+
+  const svg = `
+  <svg xmlns="http://www.w3.org/2000/svg"
+       width="1050" height="600" viewBox="0 0 1050 600">
+
+    <defs>
+      <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="${colors.bg1}"/>
+        <stop offset="100%" stop-color="${colors.bg2}"/>
+      </linearGradient>
+    </defs>
+
+    <rect width="1050" height="600" rx="25" fill="url(#bg)"/>
+
+    <rect x="15" y="15" width="1020" height="570"
+          rx="18" fill="none"
+          stroke="${colors.border}" stroke-width="3"/>
+
+    <g fill="${colors.fg}"
+       text-anchor="middle"
+       font-family="Arial, sans-serif">
+
+      <text x="525" y="235" font-size="64"
+            font-weight="bold">${business}</text>
+
+      <text x="525" y="310" font-size="28">
+        ${title}
+      </text>
+
+      <text x="525" y="405" font-size="24">
+        ${name}
+      </text>
+
+      <text x="525" y="465" font-size="22">
+        ${phone}
+      </text>
+
+    </g>
+  </svg>`;
+
+  const blob = new Blob([svg], {
+    type: "image/svg+xml;charset=utf-8"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "AJEEVA-Business-Card.svg";
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+</script>
+
 </body>
 </html>
