@@ -120,6 +120,7 @@ footer{padding:28px 15px;text-align:center;color:#718786;font-size:12px;letter-s
   }
 }
 </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
 </head>
 <body>
 <nav class="navbar">
@@ -240,5 +241,106 @@ navMenu.querySelectorAll("a").forEach(link => {
   });
 });
 </script>
+  <!-- AJEEVA ADVANCED DESIGN EDITOR -->
+<section id="advanced-editor">
+  <h2>CREATE YOUR DESIGN</h2>
+  <p>Design it your way with AJEEVA Studio</p>
+
+  <div class="editor-toolbar">
+    <button onclick="addText()">Add Text</button>
+    <button onclick="addRectangle()">Add Shape</button>
+    <button onclick="deleteObject()">Delete</button>
+    <button onclick="addShadow()">Shadow</button>
+    <button onclick="addFrame()">Add Frame</button>
+
+    <label>Color:
+      <input type="color" id="designColor" value="#c5a35a">
+    </label>
+  </div>
+
+  <div class="design-canvas">
+    <canvas id="designCanvas" width="800" height="500"></canvas>
+  </div>
+</section>
+  <script>
+const canvas = new fabric.Canvas('designCanvas', {
+  backgroundColor: '#ffffff',
+  selection: true
+});
+
+function addText() {
+  const text = new fabric.IText('Edit Your Text', {
+    left: 100,
+    top: 100,
+    fontSize: 32,
+    fill: '#c5a35a'
+  });
+  canvas.add(text);
+  canvas.setActiveObject(text);
+  canvas.renderAll();
+}
+
+function addRectangle() {
+  const rect = new fabric.Rect({
+    left: 150,
+    top: 120,
+    width: 180,
+    height: 100,
+    fill: document.getElementById('designColor').value
+  });
+  canvas.add(rect);
+  canvas.setActiveObject(rect);
+  canvas.renderAll();
+}
+
+function deleteObject() {
+  const selected = canvas.getActiveObject();
+  if (selected) {
+    canvas.remove(selected);
+    canvas.discardActiveObject();
+    canvas.renderAll();
+  }
+}
+
+function addShadow() {
+  const selected = canvas.getActiveObject();
+  if (!selected) {
+    alert('First select a text or shape');
+    return;
+  }
+
+  selected.set('shadow', new fabric.Shadow({
+    color: 'rgba(0,0,0,0.5)',
+    blur: 15,
+    offsetX: 6,
+    offsetY: 6
+  }));
+  canvas.renderAll();
+}
+
+function addFrame() {
+  const frame = new fabric.Rect({
+    left: 20,
+    top: 20,
+    width: 760,
+    height: 460,
+    fill: 'transparent',
+    stroke: '#c5a35a',
+    strokeWidth: 5,
+    selectable: true
+  });
+  canvas.add(frame);
+  canvas.setActiveObject(frame);
+  canvas.renderAll();
+}
+
+document.getElementById('designColor').addEventListener('input', function() {
+  const selected = canvas.getActiveObject();
+  if (selected) {
+    selected.set('fill', this.value);
+    canvas.renderAll();
+  }
+});
+  </script>
 </body>
 </html>
