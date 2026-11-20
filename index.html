@@ -364,6 +364,36 @@ footer{padding:28px 15px;text-align:center;color:#718786;font-size:12px;letter-s
 <button type="button" onclick="changeBackgroundFit()">
   Apply Fit
 </button>
+  <label>
+  Background Opacity
+  <input
+    type="range"
+    id="backgroundOpacity"
+    min="0"
+    max="1"
+    step="0.1"
+    value="1"
+  >
+</label>
+
+<button type="button" onclick="changeBackgroundOpacity()">
+  Apply Opacity
+</button>
+  <label>
+  Background Blur
+  <input
+    type="range"
+    id="backgroundBlur"
+    min="0"
+    max="1"
+    step="0.1"
+    value="0"
+  >
+</label>
+
+<button type="button" onclick="changeBackgroundBlur()">
+  Apply Blur
+</button>
   <div class="filter-controls">
    <label>Photo filter<select id="filterSelect"><option value="none">Original</option><option value="grayscale">Black &amp; White</option><option value="sepia">Sepia</option><option value="vintage">Vintage</option></select></label>
    <label>Brightness<input type="range" id="brightnessControl" min="-1" max="1" step="0.1" value="0"></label>
@@ -962,6 +992,56 @@ function duplicateObject() {
   saveDesignState();
   autoSaveDesign();
   }
+ function changeBackgroundOpacity() {
+  const img = canvas.backgroundImage;
+
+  if (!img) {
+    alert("Please upload a background image first!");
+    return;
+  }
+
+  const opacity = Number(
+    document.getElementById("backgroundOpacity").value
+  );
+
+  img.set("opacity", opacity);
+
+  canvas.renderAll();
+  saveDesignState();
+  autoSaveDesign();
+ }
+ function changeBackgroundBlur() {
+  const img = canvas.backgroundImage;
+
+  if (!img) {
+    alert("Please upload a background image first!");
+    return;
+  }
+
+  const blurValue = Number(
+    document.getElementById("backgroundBlur").value
+  );
+
+  img.filters = img.filters || [];
+
+  img.filters = img.filters.filter(
+    filter => filter.type !== "Blur"
+  );
+
+  if (blurValue > 0) {
+    img.filters.push(
+      new fabric.Image.filters.Blur({
+        blur: blurValue
+      })
+    );
+  }
+
+  img.applyFilters();
+  canvas.renderAll();
+
+  saveDesignState();
+  autoSaveDesign();
+ }
 </script>
 </body>
 </html>
