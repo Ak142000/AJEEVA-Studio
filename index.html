@@ -39,15 +39,14 @@ body {
   padding: 30px 20px;
   overflow: hidden;
   isolation: isolate;
-
-  background:
-    radial-gradient(ellipse at center,
+  background: radial-gradient(
+    ellipse at center,
     #17434a 0%,
     #0b1c20 42%,
-    #030608 82%);
+    #030608 82%
+  );
 }
 
-/* CINEMATIC LIGHT */
 .hero::before {
   content: "";
   position: absolute;
@@ -80,9 +79,8 @@ body {
   border: 2px solid #c5a35a;
   border-radius: 50%;
   transform: rotateX(68deg);
-  box-shadow:
-    0 0 25px #00b9a455,
-    inset 0 0 30px #00b9a422;
+  box-shadow: 0 0 25px #00b9a455,
+              inset 0 0 30px #00b9a422;
   animation: rotate 18s linear infinite;
   pointer-events: none;
   z-index: 0;
@@ -158,32 +156,7 @@ section {
   text-align: center;
 }
 
-/* ABOUT SECTION */
-.about {
-  background: linear-gradient(180deg,#080f12,#0b171a);
-}
-
-.about h2 {
-  color: #d7b56d;
-  letter-spacing: 4px;
-  margin-bottom: 25px;
-  font-size: clamp(22px,4vw,34px);
-}
-
-.about p {
-  color: #aabbbb;
-  line-height: 1.9;
-  max-width: 650px;
-  margin: auto;
-  font-size: 15px;
-}
-
-/* SERVICES SECTION */
-.services {
-  padding: 110px 7%;
-  background: linear-gradient(180deg,#080f12,#0b171b);
-}
-
+/* SECTION HEADINGS */
 .section-heading {
   text-align: center;
   margin-bottom: 55px;
@@ -197,7 +170,7 @@ section {
 
 .section-heading h2 {
   color: #e4c47d;
-  font-size: clamp(25px,4vw,38px);
+  font-size: clamp(25px, 4vw, 38px);
   letter-spacing: 3px;
   margin: 18px 0;
 }
@@ -207,9 +180,15 @@ section {
   line-height: 1.7;
 }
 
+/* SERVICES */
+.services {
+  padding: 110px 7%;
+  background: linear-gradient(180deg, #080f12, #0b171b);
+}
+
 .service-grid {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 22px;
   max-width: 1150px;
   margin: auto;
@@ -219,7 +198,7 @@ section {
   position: relative;
   padding: 35px 28px;
   min-height: 245px;
-  background: linear-gradient(145deg,#13272b,#091316);
+  background: linear-gradient(145deg, #13272b, #091316);
   border: 1px solid #244044;
   border-radius: 12px;
   transition: .4s ease;
@@ -259,76 +238,34 @@ section {
   line-height: 1.8;
 }
 
-/* FOOTER */
-footer {
-  padding: 28px 15px;
-  text-align: center;
-  color: #718786;
-  font-size: 12px;
-  letter-spacing: 1px;
-  background: #05090c;
-  line-height: 1.8;
+/* ABOUT */
+.about {
+  background: linear-gradient(180deg, #080f12, #0b171a);
 }
 
-/* TABLET */
-@media(max-width:850px) {
-  .service-grid {
-    grid-template-columns: repeat(2,1fr);
-  }
+.about h2 {
+  color: #d7b56d;
+  letter-spacing: 4px;
+  margin-bottom: 25px;
+  font-size: clamp(22px, 4vw, 34px);
 }
 
-/* MOBILE */
-@media(max-width:600px) {
-  .logo-container {
-    width: 90%;
-  }
-
-  .ring {
-    width: 90vw;
-  }
-
-  .ring.two {
-    width: 110vw;
-  }
-
-  .service-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .services {
-    padding: 75px 6%;
-  }
-
-  .about {
-    padding: 75px 20px;
-  }
+.about p {
+  color: #aabbbb;
+  line-height: 1.9;
+  max-width: 650px;
+  margin: auto;
+  font-size: 15px;
 }
 
-/* REDUCED MOTION */
-@media(prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-  }
-}
-  
-/* PORTFOLIO SECTION */
+/* PORTFOLIO */
 .portfolio {
   padding: 100px 8%;
-  text-align: center;
   background: #080d12;
 }
 
-.portfolio h2 {
+.portfolio .section-heading h2 {
   color: #d6b36a;
-  font-size: 38px;
-  margin-bottom: 12px;
-}
-
-.portfolio > p {
-  color: #aaa;
-  margin-bottom: 45px;
 }
 
 .portfolio-grid {
@@ -341,16 +278,16 @@ footer {
 
 .portfolio-card {
   background: #111a22;
-  border: 1px solid rgba(214, 179, 106, 0.25);
+  border: 1px solid rgba(214, 179, 106, .25);
   border-radius: 14px;
   padding: 18px;
-  transition: 0.4s ease;
+  transition: .4s ease;
 }
 
 .portfolio-card:hover {
   transform: translateY(-10px);
   border-color: #d6b36a;
-  box-shadow: 0 12px 35px rgba(214, 179, 106, 0.15);
+  box-shadow: 0 12px 35px rgba(214, 179, 106, .15);
 }
 
 .portfolio-preview {
@@ -374,26 +311,106 @@ footer {
 .portfolio-card p {
   color: #aaa;
   font-size: 14px;
+  line-height: 1.7;
 }
 
-@media (max-width: 768px) {
+/* CONTACT */
+.contact {
+  background: linear-gradient(180deg, #0b171a, #05090c);
+}
+
+.contact h2 {
+  color: #d7b56d;
+  font-size: clamp(25px, 4vw, 36px);
+  margin-bottom: 18px;
+}
+
+.contact p {
+  color: #aabbbb;
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+
+.contact-btn {
+  display: inline-block;
+  padding: 14px 30px;
+  border: 1px solid #c5a35a;
+  color: #e5c77f;
+  text-decoration: none;
+  letter-spacing: 2px;
+  font-size: 12px;
+  transition: .3s ease;
+}
+
+.contact-btn:hover {
+  background: #c5a35a;
+  color: #05090c;
+}
+
+/* FOOTER */
+footer {
+  padding: 28px 15px;
+  text-align: center;
+  color: #718786;
+  font-size: 12px;
+  letter-spacing: 1px;
+  background: #05090c;
+  line-height: 1.8;
+}
+
+/* TABLET */
+@media (max-width: 850px) {
+  .service-grid,
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .logo-container {
+    width: 90%;
+  }
+
+  .ring {
+    width: 90vw;
+  }
+
+  .ring.two {
+    width: 110vw;
+  }
+
+  .service-grid,
   .portfolio-grid {
     grid-template-columns: 1fr;
   }
 
-  .portfolio h2 {
-    font-size: 30px;
+  .services,
+  .portfolio {
+    padding: 75px 6%;
+  }
+
+  .about,
+  .contact {
+    padding: 75px 20px;
   }
 }
 
+/* REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
 </style>
 </head>
 
 <body>
 
 <!-- HERO -->
-<header class="hero">
-
+<header class="hero" id="home">
   <div class="ring"></div>
   <div class="ring two"></div>
 
@@ -405,15 +422,11 @@ footer {
     >
   </div>
 
-  <a class="btn" href="#services">
-    EXPLORE STUDIO
-  </a>
-
+  <a class="btn" href="#services">EXPLORE STUDIO</a>
 </header>
 
 <!-- SERVICES -->
 <section class="services" id="services">
-
   <div class="section-heading">
     <span class="eyebrow">WHAT WE DO</span>
     <h2>OUR CREATIVE SERVICES</h2>
@@ -469,21 +482,23 @@ footer {
 
 <!-- ABOUT -->
 <section class="about" id="about">
-
   <h2>WE CREATE EXPERIENCES</h2>
-
   <p>
     We transform ideas into meaningful digital experiences
     through creative design, visual identity and modern technology.
   </p>
-
 </section>
-  <!-- PORTFOLIO SECTION -->
+
+<!-- PORTFOLIO -->
 <section class="portfolio" id="portfolio">
-  <h2>Our Creative Works</h2>
-  <p>Ideas transformed into impactful designs.</p>
+  <div class="section-heading">
+    <span class="eyebrow">OUR WORK</span>
+    <h2>OUR CREATIVE WORKS</h2>
+    <p>Ideas transformed into impactful designs.</p>
+  </div>
 
   <div class="portfolio-grid">
+
     <div class="portfolio-card">
       <div class="portfolio-preview">BRANDING</div>
       <h3>Brand Identity</h3>
@@ -498,10 +513,21 @@ footer {
 
     <div class="portfolio-card">
       <div class="portfolio-preview">STATIONERY</div>
-      <h3>Business Stationery</h3>
+      <h3>BUSINESS</h3>
       <p>Premium cards and business materials.</p>
     </div>
+
   </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <h2>LET'S CREATE SOMETHING GREAT</h2>
+  <p>Have a project in mind? Let's bring your ideas to life.</p>
+  <a class="contact-btn"
+     href="mailto:ajithk0213@gmail.com?subject=AJEEVA%20Project%20Enquiry">
+    START A PROJECT
+  </a>
 </section>
 
 <!-- FOOTER -->
