@@ -349,6 +349,21 @@ footer{padding:28px 15px;text-align:center;color:#718786;font-size:12px;letter-s
   Apply Background Image
 </button>
 <button type="button" onclick="changeBackground()">Apply Background</button>
+  <button type="button" onclick="removeBackgroundImage()">
+  Remove Background Image
+  </button>
+  <label>
+  Background Fit
+  <select id="backgroundFit">
+    <option value="cover">Cover</option>
+    <option value="contain">Contain</option>
+    <option value="stretch">Stretch</option>
+  </select>
+</label>
+
+<button type="button" onclick="changeBackgroundFit()">
+  Apply Fit
+</button>
   <div class="filter-controls">
    <label>Photo filter<select id="filterSelect"><option value="none">Original</option><option value="grayscale">Black &amp; White</option><option value="sepia">Sepia</option><option value="vintage">Vintage</option></select></label>
    <label>Brightness<input type="range" id="brightnessControl" min="-1" max="1" step="0.1" value="0"></label>
@@ -900,6 +915,53 @@ function duplicateObject() {
 
   reader.readAsDataURL(file);
  }
+ function removeBackgroundImage() {
+  canvas.setBackgroundImage(null, function() {
+    canvas.renderAll();
+    saveDesignState();
+    autoSaveDesign();
+    alert("Background image removed!");
+  });
+ }
+ function changeBackgroundFit() {
+  const fit = document.getElementById("backgroundFit").value;
+  const img = canvas.backgroundImage;
+
+  if (!img) {
+    alert("Please upload a background image first!");
+    return;
+  }
+
+  const scaleX = canvas.width / img.width;
+  const scaleY = canvas.height / img.height;
+
+  if (fit === "cover") {
+    const scale = Math.max(scaleX, scaleY);
+    img.scale(scale);
+    img.set({
+      left: (canvas.width - img.getScaledWidth()) / 2,
+      top: (canvas.height - img.getScaledHeight()) / 2
+    });
+  } else if (fit === "contain") {
+    const scale = Math.min(scaleX, scaleY);
+    img.scale(scale);
+    img.set({
+      left: (canvas.width - img.getScaledWidth()) / 2,
+      top: (canvas.height - img.getScaledHeight()) / 2
+    });
+  } else {
+    img.set({
+      scaleX: scaleX,
+      scaleY: scaleY,
+      left: 0,
+      top: 0
+    });
+  }
+
+  canvas.renderAll();
+  saveDesignState();
+  autoSaveDesign();
+  }
 </script>
 </body>
 </html>
