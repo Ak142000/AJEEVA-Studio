@@ -189,6 +189,52 @@ footer{padding:28px 15px;text-align:center;color:#718786;font-size:12px;letter-s
   color: #829391;
   font-size: 13px;
 }
+ /* ADVANCED LAYER CONTROLS */
+.layer-item {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.layer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.layer-actions button {
+  width: auto !important;
+  min-width: 38px;
+  padding: 8px 10px;
+  background: #071014;
+  color: #e5c77f;
+  border: 1px solid #c5a35a;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.layer-actions button:hover {
+  background: #c5a35a;
+  color: #071014;
+}
+
+.layer-item {
+  touch-action: pan-y;
+}
+
+@media(max-width:600px) {
+  .layer-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .layer-actions {
+    width: 100%;
+  }
+
+  .layer-actions button {
+    flex: 1;
+  }
+}
 </style>
 </head>
 <body>
@@ -510,7 +556,7 @@ function manageLayer(action) {
 
   document.getElementById("layerSelect").value = "";
 }
- // LAYERS PANEL
+ // ADVANCED LAYERS PANEL
 function refreshLayers() {
   const list = document.getElementById("layersList");
   list.innerHTML = "";
@@ -525,35 +571,84 @@ function refreshLayers() {
   objects.forEach((obj, index) => {
     const item = document.createElement("div");
     item.className = "layer-item";
+    item.draggable = true;
 
     if (canvas.getActiveObject() === obj) {
       item.classList.add("active");
     }
 
-    let type = obj.type === "i-text" ? "Text" :
-               obj.type === "image" ? "Image" :
-               obj.type === "rect" ? "Shape" : obj.type;
-
-    const name = obj.text || type;
+    const name = obj.text ||
+      (obj.type === "image" ? "Image" :
+       obj.type === "rect" ? "Shape" : obj.type);
 
     const title = document.createElement("span");
     title.textContent = (index + 1) + ". " + name;
 
-    const selectButton = document.createElement("button");
-    selectButton.type = "button";
-    selectButton.textContent = "Select";
+    const controls = document.createElement("div");
+    controls.className = "layer-actions";
 
-    selectButton.onclick = function () {
+    const actions = [
+      ["↑↑", "front", "Bring to Front"],
+      ["↓↓", "back", "Send to Back"],
+      ["↑", "forward", "Bring Forward"],
+      ["↓", "backward", "Send Backward"]
+    ];
+
+    actions.forEach(([label, action, tooltip]) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = label;
+      button.title = tooltip;
+
+      button.onclick = function () {
+        if (action === "front") canvas.bringToFront(obj);
+        if (action === "back") canvas.sendToBack(obj);
+        if (action === "forward") canvas.bringForward(obj);
+        if (action === "backward") canvas.sendBackwards(obj);
+
+        canvas.setActiveObject(obj);
+        canvas.requestRenderAll();
+        saveDesignState();
+        refreshLayers();
+      };
+
+      controls.appendChild(button);
+    });
+
+    item.appendChild(title);
+    item.appendChild(controls);
+
+    item.onclick = function () {
       canvas.setActiveObject(obj);
       canvas.requestRenderAll();
       refreshLayers();
     };
 
-    item.appendChild(title);
-    item.appendChild(selectButton);
+    item.addEventListener("dragstart", function (e) {
+      e.dataTransfer.setData("text/plain", String(index));
+    });
+
+    item.addEventListener("dragover", function (e) {
+      e.preventDefault();
+    });
+
+    item.addEventListener("drop", function (e) {
+      e.preventDefault();
+
+      const from = Number(e.dataTransfer.getData("text/plain"));
+      const to = index;
+
+      if (from === to) return;
+
+      canvas.moveTo(objects[from], to);
+      canvas.requestRenderAll();
+      saveDesignState();
+      refreshLayers();
+    });
+
     list.appendChild(item);
   });
-}
+                    }
 
 // UPDATE LAYERS AUTOMATICALLY
 canvas.on("object:added", refreshLayers);
