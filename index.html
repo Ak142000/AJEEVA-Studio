@@ -502,6 +502,37 @@ canvas.on("object:modified", saveDesignState);
 canvas.on("object:removed", saveDesignState);
 
 saveDesignState();
+ function autoSaveDesign() {
+  localStorage.setItem(
+    "AJEEVA_AutoSave",
+    JSON.stringify(canvas.toJSON())
+  );
+}
+
+canvas.on("object:modified", autoSaveDesign);
+canvas.on("object:added", autoSaveDesign);
+canvas.on("object:removed", autoSaveDesign);
+
+ window.addEventListener("load", function() {
+  const savedDesign = localStorage.getItem("AJEEVA_AutoSave");
+
+  if (!savedDesign) return;
+
+  try {
+    restoringHistory = true;
+
+    canvas.loadFromJSON(JSON.parse(savedDesign), function() {
+      canvas.renderAll();
+      restoringHistory = false;
+      saveDesignState();
+      refreshLayers();
+    });
+
+  } catch (error) {
+    restoringHistory = false;
+    console.error("Auto restore failed:", error);
+  }
+});
 
 function restoreDesignState(index) {
   if (index < 0 || index >= designHistory.length) return;
