@@ -187,6 +187,22 @@ footer{padding:28px 15px;text-align:center;color:#718786;font-size:12px;letter-s
  <div class="section-heading"><span class="eyebrow">AJEEVA CREATIVE LAB</span><h2>CREATE YOUR DESIGN</h2><p>Upload, customize, add effects and export your artwork.</p></div>
  <div class="editor-toolbar">
   <button type="button" onclick="addText()">Add Text</button>
+  <label>
+  Text Size
+  <input type="number" id="textSize" value="32" min="8" max="200">
+</label>
+
+<button type="button" onclick="changeTextSize()">Apply Size</button>
+<button type="button" onclick="toggleBold()">Bold</button>
+<button type="button" onclick="toggleItalic()">Italic</button>
+
+<label>
+  Rotate
+  <input type="range" id="rotateControl" min="0" max="360" value="0">
+</label>
+
+<button type="button" onclick="rotateObject()">Apply Rotation</button>
+<button type="button" onclick="duplicateObject()">Duplicate</button>
   <button type="button" onclick="undoDesign()">↶ Undo</button>
 <button type="button" onclick="redoDesign()">↷ Redo</button>
 
@@ -427,6 +443,97 @@ function manageLayer(action) {
   saveDesignState();
 
   document.getElementById("layerSelect").value = "";
+}
+ // TEXT SIZE
+function changeTextSize() {
+  const selected = canvas.getActiveObject();
+  const size = Number(document.getElementById("textSize").value);
+
+  if (!selected || !["i-text", "textbox", "text"].includes(selected.type)) {
+    alert("First select a text object");
+    return;
+  }
+
+  if (size < 8 || size > 200) {
+    alert("Enter a size between 8 and 200");
+    return;
+  }
+
+  selected.set("fontSize", size);
+  canvas.requestRenderAll();
+  saveDesignState();
+}
+
+// BOLD
+function toggleBold() {
+  const selected = canvas.getActiveObject();
+
+  if (!selected || !["i-text", "textbox", "text"].includes(selected.type)) {
+    alert("First select a text object");
+    return;
+  }
+
+  selected.set(
+    "fontWeight",
+    selected.fontWeight === "bold" ? "normal" : "bold"
+  );
+
+  canvas.requestRenderAll();
+  saveDesignState();
+}
+
+// ITALIC
+function toggleItalic() {
+  const selected = canvas.getActiveObject();
+
+  if (!selected || !["i-text", "textbox", "text"].includes(selected.type)) {
+    alert("First select a text object");
+    return;
+  }
+
+  selected.set(
+    "fontStyle",
+    selected.fontStyle === "italic" ? "normal" : "italic"
+  );
+
+  canvas.requestRenderAll();
+  saveDesignState();
+}
+
+// ROTATE
+function rotateObject() {
+  const selected = canvas.getActiveObject();
+
+  if (!selected) {
+    alert("First select an object");
+    return;
+  }
+
+  const angle = Number(document.getElementById("rotateControl").value);
+  selected.rotate(angle);
+  canvas.requestRenderAll();
+  saveDesignState();
+}
+
+// DUPLICATE
+function duplicateObject() {
+  const selected = canvas.getActiveObject();
+
+  if (!selected) {
+    alert("First select an object");
+    return;
+  }
+
+  selected.clone(function (cloned) {
+    cloned.set({
+      left: (selected.left || 0) + 25,
+      top: (selected.top || 0) + 25
+    });
+
+    canvas.add(cloned);
+    canvas.setActiveObject(cloned);
+    canvas.requestRenderAll();
+  });
 }
 </script>
 </body>
