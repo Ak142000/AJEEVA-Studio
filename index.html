@@ -312,6 +312,9 @@ navMenu.querySelectorAll("a").forEach(link => {
     <button onclick="deleteObject()">Delete</button>
     <button onclick="addShadow()">Shadow</button>
     <button onclick="addFrame()">Add Frame</button>
+    <input type="file" id="imageUpload" accept="image/*">
+    <button onclick="downloadPNG()">Download PNG</button>
+    <input type="file" id="imageUpload" accept="image/*">
 
     <label>Color:
       <input type="color" id="designColor" value="#c5a35a">
@@ -400,6 +403,38 @@ document.getElementById('designColor').addEventListener('input', function() {
     selected.set('fill', this.value);
     canvas.renderAll();
   }
+});
+    function downloadPNG() {
+  const link = document.createElement('a');
+  link.download = 'AJEEVA-Design.png';
+  link.href = canvas.toDataURL({
+    format: 'png',
+    multiplier: 2
+  });
+  link.click();
+    }
+    document.getElementById('imageUpload').addEventListener('change', function(event) {
+  const file = event.target.files[0];
+
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+    fabric.Image.fromURL(e.target.result, function(img) {
+      img.scaleToWidth(250);
+      img.set({
+        left: 100,
+        top: 100
+      });
+
+      canvas.add(img);
+      canvas.setActiveObject(img);
+      canvas.renderAll();
+    });
+  };
+
+  reader.readAsDataURL(file);
 });
   </script>
 </body>
