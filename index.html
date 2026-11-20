@@ -297,6 +297,14 @@ footer{padding:28px 15px;text-align:center;color:#718786;font-size:12px;letter-s
 <button type="button" onclick="addTextShadow()">
   Text Shadow
 </button>
+  <label>
+  Glow Color
+  <input type="color" id="textGlowColor" value="#00e5cc">
+</label>
+
+<button type="button" onclick="addTextGlow()">
+  Text Glow
+</button>
 <button type="button" onclick="changeTextSize()">Apply Size</button>
 <button type="button" onclick="toggleBold()">Bold</button>
 <button type="button" onclick="toggleItalic()">Italic</button>
@@ -1083,6 +1091,27 @@ function duplicateObject() {
     blur: 8,
     offsetX: 4,
     offsetY: 4
+  }));
+
+  canvas.renderAll();
+  saveDesignState();
+  autoSaveDesign();
+ }
+ function addTextGlow() {
+  const selected = canvas.getActiveObject();
+
+  if (!selected || !selected.text) {
+    alert("Please select a text object first!");
+    return;
+  }
+
+  const glowColor = document.getElementById("textGlowColor").value;
+
+  selected.set("shadow", new fabric.Shadow({
+    color: glowColor,
+    blur: 20,
+    offsetX: 0,
+    offsetY: 0
   }));
 
   canvas.renderAll();
