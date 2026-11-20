@@ -25,6 +25,74 @@ body {
   font-family: Arial, sans-serif;
   overflow-x: hidden;
 }
+  
+/* NAVIGATION BAR */
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 25px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,.55),
+    transparent
+  );
+}
+
+.nav-logo {
+  color: #e5c77f;
+  text-decoration: none;
+  font-size: 23px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.nav-logo span {
+  color: #00c6b4;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-links a {
+  color: #d5dddd;
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 1px;
+  transition: .3s ease;
+}
+
+.nav-links a:hover {
+  color: #e5c77f;
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    padding: 20px 5%;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px 20px;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+  }
+}
+
 
 /* HERO SECTION */
 .hero {
@@ -568,6 +636,20 @@ footer {
 </head>
 
 <body>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+  <a href="#home" class="nav-logo">AJEEVA<span>.</span></a>
+
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#templates">Templates</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
 
 <!-- HERO -->
 <header class="hero" id="home">
