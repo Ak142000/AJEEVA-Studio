@@ -111,6 +111,27 @@ footer{padding:28px 15px;text-align:center;color:#718786;font-size:12px;letter-s
  .filter-controls input[type=range]{width:100%}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+ /* ADVANCED EDITOR CONTROLS */
+.editor-toolbar select {
+  background: #071014;
+  color: #e5c77f;
+  border: 1px solid #c5a35a;
+  padding: 10px 12px;
+  border-radius: 6px;
+  max-width: 100%;
+  cursor: pointer;
+  outline: none;
+}
+
+.editor-toolbar select:focus {
+  border-color: #f0d28a;
+  box-shadow: 0 0 8px rgba(197, 163, 90, 0.35);
+}
+
+.editor-toolbar select option {
+  background: #071014;
+  color: #ffffff;
+}
 </style>
 </head>
 <body>
@@ -165,7 +186,28 @@ footer{padding:28px 15px;text-align:center;color:#718786;font-size:12px;letter-s
 <section id="advanced-editor">
  <div class="section-heading"><span class="eyebrow">AJEEVA CREATIVE LAB</span><h2>CREATE YOUR DESIGN</h2><p>Upload, customize, add effects and export your artwork.</p></div>
  <div class="editor-toolbar">
-  <button type="button" onclick="addText()">Add Text</button><button type="button" onclick="addRectangle()">Add Shape</button><button type="button" onclick="deleteObject()">Delete</button><button type="button" onclick="addShadow()">Shadow</button><button type="button" onclick="addFrame()">Add Frame</button>
+  <button type="button" onclick="addText()">Add Text</button>
+  <button type="button" onclick="undoDesign()">↶ Undo</button>
+<button type="button" onclick="redoDesign()">↷ Redo</button>
+
+<select id="fontSelect">
+  <option value="Arial">Arial</option>
+  <option value="Georgia">Georgia</option>
+  <option value="Verdana">Verdana</option>
+  <option value="Times New Roman">Times New Roman</option>
+  <option value="Courier New">Courier New</option>
+</select>
+
+<button type="button" onclick="changeFont()">Apply Font</button>
+
+<select id="layerSelect" onchange="manageLayer(this.value)">
+  <option value="">Layer Actions</option>
+  <option value="front">Bring to Front</option>
+  <option value="back">Send to Back</option>
+  <option value="forward">Bring Forward</option>
+  <option value="backward">Send Backward</option>
+</select>
+  <button type="button" onclick="addRectangle()">Add Shape</button><button type="button" onclick="deleteObject()">Delete</button><button type="button" onclick="addShadow()">Shadow</button><button type="button" onclick="addFrame()">Add Frame</button>
   <input type="file" id="imageUpload" accept="image/*" aria-label="Upload image or logo">
   <button type="button" onclick="downloadPNG()">Download PNG</button>
   <label>Object color <input type="color" id="designColor" value="#c5a35a"></label>
@@ -304,6 +346,87 @@ function resetFilters(){
  document.getElementById("contrastControl").value=0;
  document.getElementById("blurControl").value=0;
  canvas.requestRenderAll();
+}
+ // UNDO / REDO
+let designHistory = [];
+let historyIndex = -1;
+let restoringHistory = false;
+
+function saveDesignState() {
+  if (restoringHistory) return;
+
+  const state = JSON.stringify(canvas.toJSON());
+
+  if (designHistory[historyIndex] === state) return;
+
+  designHistory = designHistory.slice(0, historyIndex + 1);
+  designHistory.push(state);
+  historyIndex = designHistory.length - 1;
+}
+
+canvas.on("object:added", saveDesignState);
+canvas.on("object:modified", saveDesignState);
+canvas.on("object:removed", saveDesignState);
+
+saveDesignState();
+
+function restoreDesignState(index) {
+  if (index < 0 || index >= designHistory.length) return;
+
+  restoringHistory = true;
+
+  canvas.loadFromJSON(designHistory[index], function () {
+    canvas.renderAll();
+    restoringHistory = false;
+  });
+}
+
+function undoDesign() {
+  if (historyIndex > 0) {
+    historyIndex--;
+    restoreDesignState(historyIndex);
+  }
+}
+
+function redoDesign() {
+  if (historyIndex < designHistory.length - 1) {
+    historyIndex++;
+    restoreDesignState(historyIndex);
+  }
+}
+
+// FONT SELECTION
+function changeFont() {
+  const selected = canvas.getActiveObject();
+
+  if (!selected || !["i-text", "textbox", "text"].includes(selected.type)) {
+    alert("First select a text object");
+    return;
+  }
+
+  selected.set("fontFamily", document.getElementById("fontSelect").value);
+  canvas.requestRenderAll();
+  saveDesignState();
+}
+
+// LAYER MANAGEMENT
+function manageLayer(action) {
+  const selected = canvas.getActiveObject();
+
+  if (!selected) {
+    alert("First select an object");
+    return;
+  }
+
+  if (action === "front") canvas.bringToFront(selected);
+  if (action === "back") canvas.sendToBack(selected);
+  if (action === "forward") canvas.bringForward(selected);
+  if (action === "backward") canvas.sendBackwards(selected);
+
+  canvas.requestRenderAll();
+  saveDesignState();
+
+  document.getElementById("layerSelect").value = "";
 }
 </script>
 </body>
