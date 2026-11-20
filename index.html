@@ -180,7 +180,76 @@ footer{padding:28px 15px;text-align:center;color:#718786;font-size:12px;letter-s
   }
 }
 </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js">
+    function applyFilters() {
+  const img = canvas.getActiveObject();
+
+  if (!img || img.type !== 'image') {
+    alert('First upload and select an image');
+    return;
+  }
+
+  const selected = document.getElementById('filterSelect').value;
+  const brightness = Number(document.getElementById('brightnessControl').value);
+  const contrast = Number(document.getElementById('contrastControl').value);
+  const blur = Number(document.getElementById('blurControl').value);
+
+  img.filters = [];
+
+  if (selected === 'grayscale') {
+    img.filters.push(new fabric.Image.filters.Grayscale());
+  }
+
+  if (selected === 'sepia') {
+    img.filters.push(new fabric.Image.filters.Sepia());
+  }
+
+  if (selected === 'vintage') {
+    img.filters.push(new fabric.Image.filters.Sepia());
+    img.filters.push(new fabric.Image.filters.Contrast({ contrast: 0.15 }));
+  }
+
+  if (brightness !== 0) {
+    img.filters.push(new fabric.Image.filters.Brightness({
+      brightness: brightness
+    }));
+  }
+
+  if (contrast !== 0) {
+    img.filters.push(new fabric.Image.filters.Contrast({
+      contrast: contrast
+    }));
+  }
+
+  if (blur > 0) {
+    img.filters.push(new fabric.Image.filters.Blur({
+      blur: blur
+    }));
+  }
+
+  img.applyFilters();
+  canvas.renderAll();
+}
+
+function resetFilters() {
+  const img = canvas.getActiveObject();
+
+  if (!img || img.type !== 'image') {
+    alert('First select an image');
+    return;
+  }
+
+  img.filters = [];
+  img.applyFilters();
+
+  document.getElementById('filterSelect').value = 'none';
+  document.getElementById('brightnessControl').value = 0;
+  document.getElementById('contrastControl').value = 0;
+  document.getElementById('blurControl').value = 0;
+
+  canvas.renderAll();
+                      }
+  </script>
 </head>
 <body>
 <nav class="navbar">
@@ -318,6 +387,34 @@ navMenu.querySelectorAll("a").forEach(link => {
     <label>Color:
       <input type="color" id="designColor" value="#c5a35a">
     </label>
+    <div class="filter-controls">
+  <label>Filter:
+    <select id="filterSelect">
+      <option value="none">Original</option>
+      <option value="grayscale">Black & White</option>
+      <option value="sepia">Sepia</option>
+      <option value="vintage">Vintage</option>
+    </select>
+  </label>
+
+  <label>Brightness:
+    <input type="range" id="brightnessControl"
+           min="-1" max="1" step="0.1" value="0">
+  </label>
+
+  <label>Contrast:
+    <input type="range" id="contrastControl"
+           min="-1" max="1" step="0.1" value="0">
+  </label>
+
+  <label>Blur:
+    <input type="range" id="blurControl"
+           min="0" max="1" step="0.1" value="0">
+  </label>
+
+  <button type="button" onclick="applyFilters()">Apply Filters</button>
+  <button type="button" onclick="resetFilters()">Reset Filters</button>
+    </div>
   </div>
 
   <div class="design-canvas">
