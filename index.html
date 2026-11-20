@@ -294,7 +294,9 @@ footer{padding:28px 15px;text-align:center;color:#718786;font-size:12px;letter-s
   Text Size
   <input type="number" id="textSize" value="32" min="8" max="200">
 </label>
-
+<button type="button" onclick="addTextShadow()">
+  Text Shadow
+</button>
 <button type="button" onclick="changeTextSize()">Apply Size</button>
 <button type="button" onclick="toggleBold()">Bold</button>
 <button type="button" onclick="toggleItalic()">Italic</button>
@@ -394,6 +396,9 @@ footer{padding:28px 15px;text-align:center;color:#718786;font-size:12px;letter-s
 <button type="button" onclick="changeBackgroundBlur()">
   Apply Blur
 </button>
+  <button type="button" onclick="resetBackgroundEffects()">
+  Reset Background Effects
+  </button>
   <div class="filter-controls">
    <label>Photo filter<select id="filterSelect"><option value="none">Original</option><option value="grayscale">Black &amp; White</option><option value="sepia">Sepia</option><option value="vintage">Vintage</option></select></label>
    <label>Brightness<input type="range" id="brightnessControl" min="-1" max="1" step="0.1" value="0"></label>
@@ -1039,6 +1044,48 @@ function duplicateObject() {
   img.applyFilters();
   canvas.renderAll();
 
+  saveDesignState();
+  autoSaveDesign();
+ }
+ function resetBackgroundEffects() {
+  const img = canvas.backgroundImage;
+
+  if (!img) {
+    alert("No background image found!");
+    return;
+  }
+
+  img.set("opacity", 1);
+  img.filters = [];
+
+  img.applyFilters();
+
+  canvas.renderAll();
+
+  document.getElementById("backgroundOpacity").value = 1;
+  document.getElementById("backgroundBlur").value = 0;
+
+  saveDesignState();
+  autoSaveDesign();
+
+  alert("Background effects reset!");
+ }
+ function addTextShadow() {
+  const selected = canvas.getActiveObject();
+
+  if (!selected || !selected.text) {
+    alert("Please select a text object first!");
+    return;
+  }
+
+  selected.set("shadow", new fabric.Shadow({
+    color: "rgba(0, 0, 0, 0.6)",
+    blur: 8,
+    offsetX: 4,
+    offsetY: 4
+  }));
+
+  canvas.renderAll();
   saveDesignState();
   autoSaveDesign();
  }
