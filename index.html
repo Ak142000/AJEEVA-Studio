@@ -1,13 +1,95 @@
- <!DOCTYPE html>
+ 
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AJEEVA | Digital Design Studio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AJEEVA | Digital Design Studio</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:#050b0e;color:#fff;
+  font-family:Arial,sans-serif;
+  overflow-x:hidden
+}
+.hero{
+  min-height:100vh;position:relative;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:30px 20px;
+  background:radial-gradient(ellipse at center,#12343a 0%,#091417 40%,#030608 78%);
+  overflow:hidden
+}
+.ring{
+  position:absolute;width:min(75vw,520px);
+  aspect-ratio:1;border:2px solid #c5a35a;
+  border-radius:50%;transform:rotateX(68deg);
+  box-shadow:0 0 25px #00b9a455,inset 0 0 30px #00b9a422;
+  animation:rotate 18s linear infinite
+}
+.ring.two{
+  width:min(90vw,650px);border-color:#00aeb0;
+  animation-duration:25s;animation-direction:reverse
+}
+@keyframes rotate{to{transform:rotateX(68deg) rotateZ(360deg)}}
+.logo{
+  width:min(75%,330px);position:relative;z-index:2;
+  mix-blend-mode:screen;
+  filter:drop-shadow(0 0 22px #c49a50);
+  animation:reveal 2s ease both
+}
+@keyframes reveal{
+  from{opacity:0;transform:translateY(30px) scale(.85)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+h1{
+  position:relative;z-index:2;
+  font-size:clamp(34px,8vw,64px);
+  letter-spacing:12px;color:#d7b56d;
+  margin-top:20px
+}
+.sub{
+  position:relative;z-index:2;
+  letter-spacing:5px;font-size:12px;
+  color:#d8e5e4;margin-top:12px
+}
+.tag{
+  position:relative;z-index:2;
+  color:#8bd6d0;letter-spacing:3px;
+  margin-top:28px;font-size:13px
+}
+.btn{
+  position:relative;z-index:2;
+  margin-top:35px;padding:14px 30px;
+  border:1px solid #c5a35a;color:#e5c77f;
+  text-decoration:none;letter-spacing:2px;
+  transition:.3s
+}
+.btn:hover{background:#c5a35a;color:#050b0e}
+section{
+  padding:90px 22px;text-align:center;
+  background:#080f12
+}
+section h2{color:#d7b56d;letter-spacing:4px;margin-bottom:20px}
+section p{color:#aabbbb;line-height:1.8;max-width:650px;margin:auto}
+footer{padding:25px;text-align:center;color:#718786;font-size:12px}
+</style>
 </head>
 <body>
+<header class="hero">
+  <div class="ring"></div>
+  <div class="ring two"></div>
+  <img class="logo" src="AJEEVA-Logo.png" alt="AJEEVA Logo">
   <h1>AJEEVA</h1>
-  <p>DIGITAL DESIGN STUDIO</p>
-  <p>CREATE. DESIGN. ELEVATE.</p>
+  <div class="sub">DIGITAL DESIGN STUDIO</div>
+  <div class="tag">CREATE. DESIGN. ELEVATE.</div>
+  <a class="btn" href="#about">EXPLORE STUDIO</a>
+</header>
+<section id="about">
+  <h2>WE CREATE EXPERIENCES</h2>
+  <p>We transform ideas into meaningful digital experiences through creative design, visual identity and modern technology.</p>
+</section>
+<footer>© 2026 AJEEVA DIGITAL DESIGN STUDIO</footer>
 </body>
 </html>
