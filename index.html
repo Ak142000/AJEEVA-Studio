@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+9<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -329,6 +329,11 @@ footer{padding:28px 15px;text-align:center;color:#718786;font-size:12px;letter-s
   <button type="button" onclick="addRectangle()">Add Shape</button><button type="button" onclick="deleteObject()">Delete</button><button type="button" onclick="addShadow()">Shadow</button><button type="button" onclick="addFrame()">Add Frame</button>
   <input type="file" id="imageUpload" accept="image/*" aria-label="Upload image or logo">
   <button type="button" onclick="downloadPNG()">Download PNG</button>
+  <button type="button" onclick="saveDesignToFile()">Save Design</button>
+  <label>
+  Load Design
+  <input type="file" id="loadDesignFile" accept=".json,application/json">
+  </label>
   <label>Object color <input type="color" id="designColor" value="#c5a35a"></label>
   <div class="filter-controls">
    <label>Photo filter<select id="filterSelect"><option value="none">Original</option><option value="grayscale">Black &amp; White</option><option value="sepia">Sepia</option><option value="vintage">Vintage</option></select></label>
@@ -749,6 +754,52 @@ function duplicateObject() {
     canvas.requestRenderAll();
   });
 }
+ function saveDesignToFile() {
+  const designData = JSON.stringify(canvas.toJSON(), null, 2);
+
+  const blob = new Blob([designData], {
+    type: "application/json"
+  });
+
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "AJEEVA-My-Design.json";
+
+  link.click();
+
+  URL.revokeObjectURL(link.href);
+ }
+ document.getElementById("loadDesignFile").addEventListener("change", function(event) {
+  const file = event.target.files[0];
+
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+    try {
+      const designData = JSON.parse(e.target.result);
+
+      restoringHistory = true;
+
+      canvas.loadFromJSON(designData, function() {
+        canvas.renderAll();
+        restoringHistory = false;
+
+        saveDesignState();
+        refreshLayers();
+
+        alert("Design loaded successfully!");
+      });
+
+    } catch (error) {
+      restoringHistory = false;
+      alert("Invalid design file!");
+    }
+  };
+
+  reader.readAsText(file);
+});
 </script>
 </body>
 </html>
