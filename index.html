@@ -341,6 +341,13 @@ footer{padding:28px 15px;text-align:center;color:#718786;font-size:12px;letter-s
   Background Color
   <input type="color" id="backgroundColor" value="#ffffff">
 </label>
+  <label>
+  Background Image
+  <input type="file" id="backgroundImageUpload" accept="image/*">
+</label>
+<button type="button" onclick="applyBackgroundImage()">
+  Apply Background Image
+</button>
 <button type="button" onclick="changeBackground()">Apply Background</button>
   <div class="filter-controls">
    <label>Photo filter<select id="filterSelect"><option value="none">Original</option><option value="grayscale">Black &amp; White</option><option value="sepia">Sepia</option><option value="vintage">Vintage</option></select></label>
@@ -860,6 +867,38 @@ function duplicateObject() {
     saveDesignState();
     autoSaveDesign();
   });
+ }
+ function applyBackgroundImage() {
+  const file = document.getElementById("backgroundImageUpload").files[0];
+
+  if (!file) {
+    alert("Please select a background image!");
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(event) {
+    fabric.Image.fromURL(event.target.result, function(img) {
+      img.set({
+        originX: "left",
+        originY: "top",
+        selectable: false,
+        evented: false
+      });
+
+      img.scaleToWidth(canvas.width);
+
+      canvas.setBackgroundImage(img, function() {
+        canvas.renderAll();
+        saveDesignState();
+        autoSaveDesign();
+        alert("Background image applied!");
+      });
+    });
+  };
+
+  reader.readAsDataURL(file);
  }
 </script>
 </body>
