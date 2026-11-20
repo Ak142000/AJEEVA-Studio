@@ -62,8 +62,14 @@ body {
 }
 
 @keyframes lightPulse {
-  from { transform: scale(.8); opacity: .08; }
-  to { transform: scale(1.2); opacity: .18; }
+  from {
+    transform: scale(.8);
+    opacity: .08;
+  }
+  to {
+    transform: scale(1.2);
+    opacity: .18;
+  }
 }
 
 /* CINEMATIC RINGS */
@@ -99,13 +105,11 @@ body {
 }
 
 /* LOGO */
-.logo {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  mix-blend-mode: screen;
-  filter: drop-shadow(0 0 22px #c49a50);
+.logo-container {
+  width: min(80%, 420px);
+  position: relative;
+  z-index: 2;
+  animation: reveal 2s ease both;
 }
 
 .logo {
@@ -148,22 +152,25 @@ body {
   transform: translateY(-3px);
 }
 
-/* ABOUT SECTION */
+/* COMMON SECTION */
 section {
   padding: 100px 22px;
   text-align: center;
-  background:
-    linear-gradient(180deg, #080f12, #0b171a);
 }
 
-section h2 {
+/* ABOUT SECTION */
+.about {
+  background: linear-gradient(180deg,#080f12,#0b171a);
+}
+
+.about h2 {
   color: #d7b56d;
   letter-spacing: 4px;
   margin-bottom: 25px;
-  font-size: clamp(22px, 4vw, 34px);
+  font-size: clamp(22px,4vw,34px);
 }
 
-section p {
+.about p {
   color: #aabbbb;
   line-height: 1.9;
   max-width: 650px;
@@ -171,42 +178,7 @@ section p {
   font-size: 15px;
 }
 
-/* FOOTER */
-footer {
-  padding: 28px 15px;
-  text-align: center;
-  color: #718786;
-  font-size: 12px;
-  letter-spacing: 1px;
-  background: #05090c;
-}
-
-/* MOBILE & TABLET */
-@media (max-width: 600px) {
-  .logo-container {
-    width: 90%;
-  }
-
-  .ring {
-    width: 90vw;
-  }
-
-  .ring.two {
-    width: 110vw;
-  }
-
-  section {
-    padding: 75px 20px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-  }
-}
+/* SERVICES SECTION */
 .services {
   padding: 110px 7%;
   background: linear-gradient(180deg,#080f12,#0b171b);
@@ -252,6 +224,7 @@ footer {
   border-radius: 12px;
   transition: .4s ease;
   overflow: hidden;
+  text-align: left;
 }
 
 .service-card:hover {
@@ -286,13 +259,38 @@ footer {
   line-height: 1.8;
 }
 
+/* FOOTER */
+footer {
+  padding: 28px 15px;
+  text-align: center;
+  color: #718786;
+  font-size: 12px;
+  letter-spacing: 1px;
+  background: #05090c;
+  line-height: 1.8;
+}
+
+/* TABLET */
 @media(max-width:850px) {
   .service-grid {
     grid-template-columns: repeat(2,1fr);
   }
 }
 
-@media(max-width:550px) {
+/* MOBILE */
+@media(max-width:600px) {
+  .logo-container {
+    width: 90%;
+  }
+
+  .ring {
+    width: 90vw;
+  }
+
+  .ring.two {
+    width: 110vw;
+  }
+
   .service-grid {
     grid-template-columns: 1fr;
   }
@@ -300,12 +298,26 @@ footer {
   .services {
     padding: 75px 6%;
   }
+
+  .about {
+    padding: 75px 20px;
+  }
+}
+
+/* REDUCED MOTION */
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- HERO -->
 <header class="hero">
 
   <div class="ring"></div>
@@ -319,15 +331,15 @@ footer {
     >
   </div>
 
-  <a class="btn" href="#about">
+  <a class="btn" href="#services">
     EXPLORE STUDIO
   </a>
 
 </header>
 
-  
-<!-- SERVICES SECTION -->
+<!-- SERVICES -->
 <section class="services" id="services">
+
   <div class="section-heading">
     <span class="eyebrow">WHAT WE DO</span>
     <h2>OUR CREATIVE SERVICES</h2>
@@ -381,19 +393,22 @@ footer {
   </div>
 </section>
 
+<!-- ABOUT -->
+<section class="about" id="about">
 
-<section id="about">
   <h2>WE CREATE EXPERIENCES</h2>
 
   <p>
     We transform ideas into meaningful digital experiences
     through creative design, visual identity and modern technology.
   </p>
+
 </section>
 
+<!-- FOOTER -->
 <footer>
   © 2026 AJEEVA DIGITAL DESIGN STUDIO
-  <br><br>
+  <br>
   CREATE. DESIGN. ELEVATE.
 </footer>
 
