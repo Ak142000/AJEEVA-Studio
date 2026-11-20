@@ -404,6 +404,166 @@ footer {
     scroll-behavior: auto !important;
   }
 }
+  
+/* BUSINESS CARD TEMPLATES */
+.templates {
+  padding: 100px 7%;
+  background: #080f12;
+}
+
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.template-card {
+  background: #111a22;
+  border: 1px solid #344044;
+  padding: 22px;
+  border-radius: 14px;
+  text-align: center;
+  transition: .3s ease;
+}
+
+.template-card:hover {
+  transform: translateY(-7px);
+  border-color: #c5a35a;
+}
+
+.template-preview {
+  width: 100%;
+  aspect-ratio: 1.75 / 1;
+  border-radius: 8px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.gold-card {
+  background: linear-gradient(135deg, #090909, #30230e);
+  border: 1px solid #c5a35a;
+  color: #e8c778;
+}
+
+.blue-card {
+  background: linear-gradient(135deg, #071a35, #17608b);
+  border: 1px solid #75c9ed;
+  color: #fff;
+}
+
+.template-preview strong {
+  font-size: clamp(17px, 3vw, 25px);
+  letter-spacing: 3px;
+}
+
+.template-preview span {
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.template-preview small {
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.template-card h3 {
+  color: #e5c77f;
+  margin: 20px 0 8px;
+}
+
+.template-card p {
+  color: #aabbbb;
+  font-size: 13px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.template-card button,
+.editor-box button {
+  background: transparent;
+  border: 1px solid #c5a35a;
+  color: #e5c77f;
+  padding: 13px 25px;
+  cursor: pointer;
+  letter-spacing: 2px;
+  transition: .3s;
+}
+
+.template-card button:hover,
+.editor-box button:hover {
+  background: #c5a35a;
+  color: #05090c;
+}
+
+/* ONLINE EDITOR */
+.editor {
+  padding: 100px 7%;
+  background: linear-gradient(180deg, #080d12, #101b20);
+}
+
+.editor-box {
+  max-width: 600px;
+  margin: auto;
+  padding: 28px;
+  border: 1px solid #344044;
+  border-radius: 14px;
+  background: #101a20;
+}
+
+.editor-box label {
+  display: block;
+  color: #d6b36a;
+  font-size: 13px;
+  margin: 18px 0 8px;
+}
+
+.editor-box input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #405052;
+  border-radius: 6px;
+  background: #071014;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+}
+
+.editor-box input:focus {
+  border-color: #c5a35a;
+}
+
+#liveCard {
+  margin: 30px 0;
+  min-height: 190px;
+}
+
+.editor-box button {
+  width: 100%;
+}
+
+@media(max-width: 600px) {
+  .template-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .templates,
+  .editor {
+    padding: 75px 6%;
+  }
+
+  .editor-box {
+    padding: 18px;
+  }
+}
+
 </style>
 </head>
 
