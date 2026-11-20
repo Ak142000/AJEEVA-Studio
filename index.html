@@ -519,6 +519,76 @@ footer {
 
   </div>
 </section>
+  
+<!-- BUSINESS CARD TEMPLATES -->
+<section class="templates" id="templates">
+
+  <div class="section-heading">
+    <span class="eyebrow">DESIGN COLLECTION</span>
+    <h2>EDITABLE BUSINESS CARDS</h2>
+    <p>Choose a design and customize it for your business.</p>
+  </div>
+
+  <div class="template-grid">
+
+    <div class="template-card">
+      <div class="template-preview gold-card">
+        <strong>YOUR BRAND</strong>
+        <span>CREATIVE BUSINESS</span>
+        <small>YOUR NAME | DESIGNER</small>
+      </div>
+      <h3>Luxury Gold</h3>
+      <p>Elegant black and gold business card.</p>
+      <button onclick="openEditor('gold')">EDIT DESIGN</button>
+    </div>
+
+    <div class="template-card">
+      <div class="template-preview blue-card">
+        <strong>YOUR BRAND</strong>
+        <span>BUSINESS SOLUTIONS</span>
+        <small>YOUR NAME | MANAGER</small>
+      </div>
+      <h3>Modern Blue</h3>
+      <p>Clean and professional corporate design.</p>
+      <button onclick="openEditor('blue')">EDIT DESIGN</button>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SIMPLE ONLINE EDITOR -->
+<section class="editor" id="editor">
+  <div class="section-heading">
+    <span class="eyebrow">CUSTOMIZE YOUR DESIGN</span>
+    <h2>BUSINESS CARD EDITOR</h2>
+    <p>Enter your details and preview your card.</p>
+  </div>
+
+  <div class="editor-box">
+    <label>Your Name</label>
+    <input id="cardName" type="text" placeholder="Enter your name">
+
+    <label>Business Name</label>
+    <input id="businessName" type="text" placeholder="Enter business name">
+
+    <label>Job Title</label>
+    <input id="jobTitle" type="text" placeholder="Enter job title">
+
+    <label>Phone Number</label>
+    <input id="phoneNumber" type="text" placeholder="Enter phone number">
+
+    <div id="liveCard" class="template-preview gold-card">
+      <strong id="previewBusiness">YOUR BRAND</strong>
+      <span id="previewTitle">BUSINESS SOLUTIONS</span>
+      <small id="previewName">YOUR NAME | DESIGNER</small>
+      <small id="previewPhone">YOUR PHONE</small>
+    </div>
+
+    <button type="button" onclick="downloadCard()">DOWNLOAD SVG</button>
+  </div>
+</section>
+
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
